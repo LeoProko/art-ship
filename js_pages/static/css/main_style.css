@@ -1,0 +1,16 @@
+body {
+    background-color: #000013;
+    margin: 3% auto;
+    text-align: center;
+    font-size: 20px;
+    font-family: arial;
+    color: #ffc300;
+}
+a, li {
+    color: #b574ff;
+    padding: 0.2%;
+}
+img {
+    padding: 2%;
+    width: 30%;
+}
