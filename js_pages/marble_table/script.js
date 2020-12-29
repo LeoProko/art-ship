@@ -48,7 +48,8 @@ function draw_columns(density) {
     }
 }
 
-function draw_rows(density) { for (let y = density; y < height; y += density) {
+function draw_rows(density) {
+    for (let y = density; y < height; y += density) {
         line(0, y, width, y);
     }
 }
