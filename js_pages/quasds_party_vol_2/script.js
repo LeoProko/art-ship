@@ -2,6 +2,7 @@ let size = 700;
 let x = y = size / 2;
 let b = 255;
 let g = r = 0;
+let fill_flag = 0;
 
 function setup() {
   createCanvas(size, size);
@@ -18,18 +19,12 @@ function draw() {
     draw_rows(density);
     let coordinates = give_coordinates(density);
     make_quads(density, coordinates);
+    noLoop();
 }
 
 function mousePressed() {
-    if (r) {
-        r = 0; g = 255;
-    }
-    else if (g){
-        g = 0; b = 255;
-    }
-    else if (b) {
-        b = 0; r = 255;
-    }
+    fill_flag = (fill_flag + 1) % 2;
+    loop();
 }
 
 function draw_columns(density) {
@@ -65,7 +60,10 @@ function make_quads(density, coordinates) {
         strokeWeight(2);
         if ((i + 1) % line_density === 0) i++;
         for (let quads = 0; quads <= depth * int(random(5, 20)); quads += depth) {
-            fill(random(0, r), random(0, g), random(0, b));
+            if (fill_flag)
+                fill(random(0, r), random(0, g), random(0, b));
+            else
+                noFill();
             quad(
                 coordinates[i][0] + quads, coordinates[i][1] + quads,
                 coordinates[i + 1][0] + quads, coordinates[i + 1][1] - quads,
