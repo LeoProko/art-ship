@@ -12,20 +12,20 @@ lines = [];
 for (let i = step; i <= size - step; i += step) {
     line = [];
 
-    for(let j = step; j <= size - step; j += step) {
+    for(let j = step + Math.floor(Math.random() * step * 2); j <= size - step; j += step + Math.floor(Math.random() * step * 2)) {
         
-        distance_to_center = Math.abs(j - size / 2);
+        distance_to_center = Math.abs(j - size / 2) + Math.abs(i - size / 2) / 2;
         variance = Math.max(size / 2 - size / 5 - distance_to_center, 0);
         random = Math.random() * variance / 2 * -1;
 
-        point = {x: j, y: i + random / 2};
+        point = {x: j, y: i + random * 0.8};
         line.push(point);
     }
     lines.push(line);
 }
 
 
-for (i = 3; i < lines.length; i++) {
+for (i = 2; i < lines.length - 2; i++) {
     context.beginPath();
     context.moveTo(lines[i][0].x, lines[i][0].y);
     
@@ -37,9 +37,8 @@ for (i = 3; i < lines.length; i++) {
 
     context.quadraticCurveTo(lines[i][j].x, lines[i][j].y, lines[i][j + 1].x, lines[i][j + 1].y);
     context.save();
-    context.globalCompositeOperation = 'distination-out';
     context.fillStyle = 'white';
     context.fill();
-    context.stroke();
     context.restore();
+    context.stroke();
 }

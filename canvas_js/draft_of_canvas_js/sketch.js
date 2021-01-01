@@ -11,9 +11,9 @@ canv.height = 500;
 //context.scale(dpr, dpr);
 
 context.lineCap = 'square';
-context.lineWidth = 2;
+context.lineWidth = 8;
 
-let step = 20;
+let step = 35;
 
 function to_draw(x, y, width, height) {
     let left_to_right = Math.random() >= 0.5;
@@ -32,6 +32,7 @@ function to_draw(x, y, width, height) {
 
 for (let x = 0; x <= s; x += step) {
     for (let y = 0; y <= s; y += step) {
+        to_draw(x, y, step, step);
         to_draw(x, y, step, step);
     }
 }

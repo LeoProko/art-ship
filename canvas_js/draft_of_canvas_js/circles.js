@@ -5,13 +5,13 @@ size = 500;
 canvas.width = size;
 canvas.height = size;
 context.lineWidth = 2;
-context.strokeStyle = 'gold';
+context.strokeStyle = 'black';
 
 circles = [];
 min_radius = 2;
-max_radius = 100;
-total_circles = 1500;
-create_circles_attempts = 1500;
+max_radius = size / 5;
+total_circles = size * 3;
+create_circles_attempts = size * 3;
 
 function create_and_draw_circle() {
     let new_circle;
@@ -23,9 +23,7 @@ function create_and_draw_circle() {
             y: Math.floor(Math.random() * size),
             radius: min_radius
         }
-        if (does_circle_have_a_collision(new_circle))
-            continue;
-        else {
+        if (! does_circle_have_a_collision(new_circle)) {
             circle_safe_to_draw = true;
             break;
         }

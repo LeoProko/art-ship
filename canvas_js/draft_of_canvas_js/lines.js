@@ -4,10 +4,10 @@ context = canvas.getContext('2d');
 size = 500;
 canvas.width = size;
 canvas.height = size;
-context.lineWidth = 4;
-context.lineCap = 'round'
+context.lineWidth = 2;
+context.lineCap = 'round';
 
-step = 20;
+step = 10;
 
 
 function to_draw(x, y, width, height, positions) {

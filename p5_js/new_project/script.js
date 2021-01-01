@@ -17,7 +17,12 @@ function draw() {
     draw_columns(density);
     draw_rows(density);
     let coordinates = give_coordinates(density);
-    make_quads(density, coordinates);
+    beginShape();
+    for (let v of coordinates) {
+        vertex(v[0], v[1]);
+    }
+    endShape(CLOSE);
+    noLoop();
 }
 
 function mousePressed() {
@@ -57,17 +62,3 @@ function give_coordinates(density) {
     return coordinates;
 }
 
-function make_quads(density, coordinates) {
-    let line_density = height / density;
-    for (let i = 0; i < line_density ** 2 - line_density - 1; i += 1) {
-        fill(random(0, r), random(0, g), random(0, b));
-        if ((i + 1) % line_density === 0) i++;
-        quad(
-            coordinates[i][0], coordinates[i][1],
-            coordinates[i + 1][0], coordinates[i + 1][1],
-            coordinates[i + 1 + line_density][0], coordinates[i + 1 + line_density][1],
-            coordinates[i + line_density][0], coordinates[i + line_density][1]
-        );
-
-    }
-}
