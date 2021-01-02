@@ -1,16 +1,16 @@
-canvas = document.getElementById('canvas_6');
+canvas = document.getElementById('squares');
 context = canvas.getContext('2d');
 
 size = 500;
 canvas.width = size;
 canvas.height = size;
-context.lineWidth = 1.5;
+context.lineWidth = size / 700;
 
 final_size = 3;
 let start_steps;
 max_step = 7;
-offset = 2;
-tile_step = (size - 2 * offset) / 7;
+offset = 4;
+tile_step = (size - 2 * offset) / 20;
 start_size = tile_step;
 directions = [-1, 0, 1];
 
@@ -32,10 +32,13 @@ function to_draw(x, y, width, height, x_move, y_move, steps) {
 
 for (let x = offset; x < size - offset; x += tile_step) {
     for (let y = offset; y < size - offset; y += tile_step) {
-        start_steps = 2 + Math.ceil(Math.random() * max_step);
+        start_steps = 5 + Math.ceil(Math.random() * max_step);
         x_dir = directions[Math.floor(Math.random() * directions.length)]
         y_dir = directions[Math.floor(Math.random() * directions.length)]
+        let red = Math.floor(Math.random() * 20);
+        let green = 0;
+        let blue = Math.floor(Math.random() * 50 + 50);
+        context.strokeStyle = "rgb(" + red + "," + green + "," + blue + ")";
         to_draw(x, y, start_size, start_size, x_dir, y_dir, start_steps);
     }
 }
-

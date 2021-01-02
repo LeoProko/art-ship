@@ -1,4 +1,4 @@
-canvas = document.getElementById('canvas_5');
+canvas = document.getElementById('circles');
 context = canvas.getContext('2d');
 
 size = 500;

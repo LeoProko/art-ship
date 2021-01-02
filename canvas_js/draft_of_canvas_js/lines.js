@@ -1,4 +1,4 @@
-canvas = document.getElementById('canvas_4');
+canvas = document.getElementById('lines');
 context = canvas.getContext('2d');
 
 size = 500;

@@ -1,10 +1,11 @@
 body {
-    background-color: #FFFFFF;
+    background-color: #f0f0f0;
     margin: 3%;
     text-align: center;
     font-size: 20px;
     font-family: arial;
     color: black;
+    max-width: 1500px;
 }
 canvas {
     border: 20px solid black;

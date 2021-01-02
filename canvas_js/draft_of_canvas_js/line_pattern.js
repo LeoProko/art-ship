@@ -1,13 +1,13 @@
-let canv = document.getElementById('canvas_2');
-let context = canv.getContext('2d');
+canvas = document.getElementById('line_pattern');
+context = canvas.getContext('2d');
 
-let s = 500;
-let dpr = window.devicePixelRatio;
+size = 500;
+dpr = window.devicePixelRatio;
 
 //canv.width = s * dpr;
 //canv.height = s * dpr;
-canv.width = 500;
-canv.height = 500;
+canvas.width = 500;
+canvas.height = 500;
 //context.scale(dpr, dpr);
 
 context.lineCap = 'square';
@@ -30,8 +30,8 @@ function to_draw(x, y, width, height) {
     context.stroke();
 }
 
-for (let x = 0; x <= s; x += step) {
-    for (let y = 0; y <= s; y += step) {
+for (let x = 0; x <= size; x += step) {
+    for (let y = 0; y <= size; y += step) {
         to_draw(x, y, step, step);
         to_draw(x, y, step, step);
     }

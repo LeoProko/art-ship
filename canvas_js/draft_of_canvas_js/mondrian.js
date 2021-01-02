@@ -1,4 +1,4 @@
-canvas = document.getElementById('canvas_7');
+canvas = document.getElementById('mondrian');
 context = canvas.getContext('2d');
 
 size = 500;
@@ -6,7 +6,7 @@ canvas.width = size;
 canvas.height = size;
 context.lineWidth = 6;
 step = size / 7;
-white = '#ffffff';
+white = '#f0f0f0';
 colors = ['#000000', '#fcca00', '#fc002a'];
 num_color_blocks = 7;
 
@@ -29,7 +29,7 @@ function split_squares_width(coordinates) {
             }
         }
         if (y && y > square.y && y < square.y + square.height) {
-            if (Math.random() > 0.5) {
+            if (Math.random() > 0.4) {
                 squares.splice(i, 1);
                 split_on_y(square, y);
             }

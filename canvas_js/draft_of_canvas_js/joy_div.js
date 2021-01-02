@@ -1,4 +1,4 @@
-canvas = document.getElementById('canvas_3');
+canvas = document.getElementById('joy_div');
 context = canvas.getContext('2d');
 
 size = 500;
