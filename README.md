@@ -5,4 +5,5 @@
 ---
 
 ### Доступные для просмотра работы сейчас можно найти здесь:
-- js_pages/main_page.html
+- p5_js/main_page.html
+- canvas_js/draft_of_canvas_js/index.html
