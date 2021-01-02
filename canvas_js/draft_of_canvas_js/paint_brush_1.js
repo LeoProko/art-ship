@@ -13,7 +13,7 @@ const mouse = {
     y: null
 }
 
-window.addEventListener('mousemove', function(event) {
+canvas.addEventListener('mousemove', function(event) {
     //mouse.x = event.x;
     //mouse.y = event.y;
     mouse.x = event.offsetX;
@@ -68,23 +68,18 @@ function branchOut() {
 }
 
 
-//window.addEventListener('resize', function() {
-//canvas.width = window.innerWidth;
-//canvas.height = window.innerHeight;
-//})
-
-window.addEventListener('mousemove', function() {
-    //ctx.fillStyle = 'rgba(200, 200, 200, 0.03)';
-    //ctx.fillRect(0, 0, canvas.width, canvas.height);
+canvas.addEventListener('mousemove', function() {
+    ctx.fillStyle = 'rgba(240, 240, 240, 0.03)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
     branchOut();
 })
 
 
 
-window.addEventListener('mouseup', function() {
+canvas.addEventListener('mouseup', function() {
     drawing = false;
 })
 
-window.addEventListener('mousedown', function() {
+canvas.addEventListener('mousedown', function() {
     drawing = true;
 })
