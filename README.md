@@ -112,6 +112,17 @@ ArtShip.return_pixel_image()
 ```
 - Returns a pixelated image in 1D array format (red, green, blue, alpha)
 
+**Formula** for working with 1D array like a 2D array:
+```javascript
+for (let x = 0; x < this.width; x++) {
+  for (let y = 0; y < this.height; y++) {
+      index = x + y * this.width;
+      pixel_impage[index] = ...;
+  }
+}
+```
+
+
 ```javascript
 ArtShip.image_pixel_to_vector(pixel_image)
 ```
