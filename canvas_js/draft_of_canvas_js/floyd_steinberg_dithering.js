@@ -6,8 +6,6 @@ fsd.mouse_update();
 context = fsd.context;
 fsd.background(150, 150, 255);
 
-
-
 function draw() {
     image = fsd.load_image('./cat.jpg')
     fsd.resize_canvas(500, 500);
@@ -25,7 +23,6 @@ function draw() {
             pixels[i]     = avg; // red
             pixels[i + 1] = avg; // green
             pixels[i + 2] = avg; // fsdue
-            // pixels[i + 3] = 255; // fsdue
 
             old_colors = [
                 pixels[i],
@@ -42,7 +39,6 @@ function draw() {
             pixels[i + 0] = new_colors[0];
             pixels[i + 1] = new_colors[1];
             pixels[i + 2] = new_colors[2];
-            // pixels[i + 3] = 255;
 
             error_colors = [
                 old_colors[0] - new_colors[0],
@@ -78,19 +74,19 @@ function draw() {
     }
     fsd.pixel_to_vector(pixel_image);
 
-    // for (let x = 0; x <= fsd.width; x += fsd.ratio(10)) {
-    //     let max_radius = fsd.remap(fsd.abs(x - fsd.width / 2), 0, fsd.width / 2, fsd.width / 2, 0);
-    //     for (radius = max_radius; radius > 0; radius -= fsd.ratio(10)) {
-    //         fsd.circle(x, fsd.height / 2, radius / 2);
-    //         fsd.stroke(2, 255);
-    //     }
-    // }
-    // for (let x = 0; x <= fsd.width; x += fsd.ratio(10)) {
-    //     for (radius = fsd.width / 2; radius > 0; radius -= fsd.ratio(10)) {
-    //         fsd.circle(x, fsd.height / 2, radius);
-    //         fsd.stroke();
-    //     }
-    // }
+    for (let x = 0; x <= fsd.width; x += fsd.ratio(10)) {
+        let max_radius = fsd.remap(fsd.abs(x - fsd.width / 2), 0, fsd.width / 2, fsd.width / 2, 0);
+        for (radius = max_radius; radius > 0; radius -= fsd.ratio(10)) {
+            fsd.circle(x, fsd.height / 2, radius / 2);
+            fsd.stroke(1, 255, 0, 0, 0.3);
+        }
+    }
+    for (let x = 0; x <= fsd.width; x += fsd.ratio(10)) {
+        for (radius = fsd.width / 2; radius > 0; radius -= fsd.ratio(10)) {
+            fsd.circle(x, fsd.height / 2, radius);
+            fsd.stroke(1, 0, 0, 0, 0.2);
+        }
+    }
 }
 
 draw();
