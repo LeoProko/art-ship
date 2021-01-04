@@ -133,12 +133,6 @@ ArtShip.load_image(path)
 
 ___
 ```javascript
-ArtShip.index(x, y)
-```
-- returns the (x, y) coordinate of 1D array
-
-___
-```javascript
 ArtShip.pixel_image()
 ```
 - Returns a meta info of pixelated image
@@ -153,7 +147,7 @@ ArtShip.pixels(pixel_image)
 ```javascript
 for (let x = 0; x < this.width; x++) {
   for (let y = 0; y < this.height; y++) {
-      index = (x + y * this.width) * 4;
+      idnex = ArtShip.index(x, y);  // index = (x + y * this.width) * 4;
       pixel_impage[index + 0] = ...;  // red
       pixel_impage[index + 1] = ...;  // green
       pixel_impage[index + 2] = ...;  // blue
@@ -161,6 +155,12 @@ for (let x = 0; x < this.width; x++) {
   }
 }
 ```
+
+___
+```javascript
+ArtShip.index(x, y)
+```
+- returns the (x, y) coordinate of 1D array
 
 ___
 ```javascript

@@ -121,16 +121,16 @@ class ArtShip {
         return image;
     }
 
-    index(x, y) {
-        return (x + y * this.width) * 4;
-    }
-
     pixel_image() {
         return this.context.getImageData(0, 0, this.width, this.height);
     }
 
     pixels(pixel_image) {
         return pixel_image.data;
+    }
+
+    index(x, y) {
+        return (x + y * this.width) * 4;
     }
 
     pixel_to_vector(pixel_image) {
