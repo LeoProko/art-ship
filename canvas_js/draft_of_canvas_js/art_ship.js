@@ -41,12 +41,14 @@ class ArtShip {
         this.context.beginPath();
         this.context.moveTo(start_x, start_y);
         this.context.lineTo(end_x, end_y);
+        this.context.closePath();
     }
 
     circle(x, y, radius) {
         this.context.beginPath();
         this.context.arc(x, y, radius, 0, 2 * Math.PI);
         return this.context;
+        this.context.closePath();
     }
 
     rect(center_x,  center_y, width, height) {
@@ -57,6 +59,7 @@ class ArtShip {
             width,
             height
         );
+        this.context.closePath();
     }
 
     curve(coordinates) {
@@ -70,6 +73,7 @@ class ArtShip {
         }
         let i = coordinates.length - 2;
         this.context.quadraticCurveTo(x_average, y_average, coordinates[i + 1][0], coordinates[i + 1][1]);
+        this.context.closePath();
     }
 
     random(min_value, max_value) {
@@ -78,6 +82,10 @@ class ArtShip {
 
     int(number) {
         return Math.floor(number);
+    }
+
+    round(number) {
+        return Math.round(number);
     }
     
     abs(number) {
@@ -106,11 +114,52 @@ class ArtShip {
         }
     }
 
-    return_pixel_image() {
+    load_image(path) {
+        let image = new Image();
+        image.crossOrigin = 'anonymous';
+        image.src = path;
+        return image;
+    }
+
+    index(x, y) {
+        return (x + y * this.width) * 4;
+    }
+
+    pixel_image() {
         return this.context.getImageData(0, 0, this.width, this.height);
     }
 
-    image_pixel_to_vector(pixel_image) {
+    pixels(pixel_image) {
+        return pixel_image.data;
+    }
+
+    pixel_to_vector(pixel_image) {
         this.context.putImageData(pixel_image, 0, 0);
+    }
+
+    draw_image(image, upper_left_corner_x = 0, upper_left_corner_y = 0, width = image.width, height = image.height) {
+        this.context.drawImage(image, upper_left_corner_x, upper_left_corner_y, width, height);
+    }
+
+    mouse_update() {
+        this.canvas.addEventListener('mousemove', event => {
+            this.mouse.x = event.offsetX;
+            this.mouse.y = event.offsetY;
+        })
+
+        this.canvas.addEventListener('mousedown', event => {
+            this.mouse.pressed = true;
+        })
+
+        this.canvas.addEventListener('mouseup', event => {
+            this.mouse.pressed = false;
+        })
+    }
+
+    resize_canvas(width = this.canvas.width, height = this.canvas.height) {
+        this.canvas.width = width;
+        this.width = width;
+        this.canvas.height = height;
+        this.height = height;
     }
 }

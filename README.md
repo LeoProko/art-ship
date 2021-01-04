@@ -103,6 +103,12 @@ ArtShip.int(number)
 
 ___
 ```javascript
+ArtShip.round(number)
+```
+- Returns a round number
+
+___
+```javascript
 ArtShip.abs(number)
 ```
 - Returns the absolute value of a number
@@ -121,7 +127,25 @@ ArtShip.remap(value, min_value, max_value, new_min_value, new_max_value)
 
 ___
 ```javascript
-ArtShip.return_pixel_image()
+ArtShip.load_image(path)
+```
+- returns the image object
+
+___
+```javascript
+ArtShip.index(x, y)
+```
+- returns the (x, y) coordinate of 1D array
+
+___
+```javascript
+ArtShip.pixel_image()
+```
+- Returns a meta info of pixelated image
+
+___
+```javascript
+ArtShip.pixels(pixel_image)
 ```
 - Returns a pixelated image in 1D array format (red, green, blue, alpha)
 
@@ -129,15 +153,43 @@ ArtShip.return_pixel_image()
 ```javascript
 for (let x = 0; x < this.width; x++) {
   for (let y = 0; y < this.height; y++) {
-      index = x + y * this.width;
-      pixel_impage[index] = ...;
+      index = (x + y * this.width) * 4;
+      pixel_impage[index + 0] = ...;  // red
+      pixel_impage[index + 1] = ...;  // green
+      pixel_impage[index + 2] = ...;  // blue
+      pixel_impage[index + 3] = ...;  // alpha
   }
 }
 ```
 
+___
+```javascript
+ArtShip.pixel_to_vector(pixel_image)
+```
+- Assigns to the context vector image
 
 ___
 ```javascript
-ArtShip.image_pixel_to_vector(pixel_image)
+ArtShip.draw_image(image, upper_left_corner_x, upper_left_corner_y, width, height)
 ```
-- Assigns to the context vector image
+- Draw image on the canvas with the upper left corner at the point (x, y) <br>
+  *Default parameters*
+  - upper_left_corner_x = 0
+  - upper_left_corner_y = 0
+  - width = image width
+  - height = image height
+
+___
+```javascript
+ArtShip.mouse_update()
+```
+- Add coordinates of mouse and pressed flag in ArtShip.mouse
+
+___
+```javascript
+ArtShip.resize_canvas(width, height)()
+```
+- Resize canvas <br>
+  *Default parameters*
+  - width = canvas width
+  - height = canvas height
