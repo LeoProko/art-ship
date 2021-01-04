@@ -13,6 +13,8 @@ This is just a cool repository where you can see the process of creating **hybri
 ### **ArtShip** module
 This module will help you to work comfortably with graphics in *Canvas Api JavaScript*
 
+Now you can find this module at **canvas_js/draft_of_canvas_js/art_ship.js**
+
 **Initialization**
 
 ```javascript
