@@ -106,3 +106,13 @@ ArtShip.ratio(ratio)
 ArtShip.remap(value, min_value, max_value, new_min_value, new_max_value)
 ```
 - Returns a remapped value from *min_value, max_value* to *new_min_value, new_max_value*
+
+```javascript
+ArtShip.return_pixel_image()
+```
+- Returns a pixelated image in 1D array format (red, green, blue, alpha)
+
+```javascript
+ArtShip.image_pixel_to_vector(pixel_image)
+```
+- Assigns to the context vector image

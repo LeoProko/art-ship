@@ -24,7 +24,7 @@ class ArtShip {
         this.context.restore();
     }
 
-    background (red = 255, green = 255, blue = 255, alpha = 1) {
+    background(red = 255, green = 255, blue = 255, alpha = 1) {
         this.context.rect(0, 0, this.width, this.height);
         this.fill(red, green, blue, alpha);
     }
@@ -104,5 +104,13 @@ class ArtShip {
             return new_max_value + new_min_value - new_value;
 
         }
+    }
+
+    return_pixel_image() {
+        return this.context.getImageData(0, 0, this.width, this.height);
+    }
+
+    image_pixel_to_vector(pixel_image) {
+        this.context.putImageData(pixel_image, 0, 0);
     }
 }
