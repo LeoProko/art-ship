@@ -5,7 +5,6 @@ body {
     font-size: 20px;
     font-family: arial;
     color: black;
-    max-width: 1500px;
 }
 canvas {
     border: 20px solid black;
