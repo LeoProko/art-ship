@@ -10,26 +10,28 @@ This is just a cool repository where you can see the process of creating **hybri
 
 ---
 
-### **ArtShip** module
+## ArtShip module
 This module will help you to work comfortably with graphics in *Canvas Api JavaScript*
 
 Now you can find this module at **canvas_js/draft_of_canvas_js/art_ship.js**
 
-**Initialization**
+### Initialization
 
 ```javascript
 canvas = document.getElementById('canvas_name');
 name = new ArtShip(height, width, canvas);
 ```
 
-**Functions**
+### Functions
 
+___
 ```javascript
 ArtShip.print(message)
 ```
 - Print message to console
 
 
+___
 ```javascript
 ArtShip.fill(red, green, blue, alpha)
 ```
@@ -40,6 +42,7 @@ ArtShip.fill(red, green, blue, alpha)
     - blue = 0
     - alpha = 1
 
+___
 ```javascript
 ArtShip.background(red, green, blue, alpha)
 ```
@@ -50,6 +53,7 @@ ArtShip.background(red, green, blue, alpha)
   - blue = 255
   - alpha = 1
 
+___
 ```javascript
 ArtShip.stroke(size, red, green, blue, alpha)
 ```
@@ -60,53 +64,62 @@ ArtShip.stroke(size, red, green, blue, alpha)
   - green = 0
   - blue = 0
   - alpha = 1
-    
+
+___
 ```javascript
 ArtShip.line(start_x, start_y, end_x, end_y)
-
 ```
 - Make a line shape from a (start_x, start_y) to the (end_x, end_y)
 
+___
 ```javascript
 ArtShip.circle(x, y, radius)
 ```
 - Make a circle shape with a given radius and center at the (x, y)
 
+___
 ```javascript
 ArtShip.rect(center_x, center_y, width, height)
 ```
 - Make a rectangle shape with a given width and height and center at the (center_x, center_y)
 
+___
 ```javascript
 ArtShip.curve(coordinates)
 ```
 - Make a quadratic curve shape through given coordinates
 
+___
 ```javascript
 ArtShip.random(min_value, max_value)
 ```
 - Returns a random float number from min_value to max_value
 
+___
 ```javascript
 ArtShip.int(number)
 ```
 - Returns an integer number
 
+___
 ```javascript
 ArtShip.abs(number)
 ```
 - Returns the absolute value of a number
 
+___
 ```javascript
 ArtShip.ratio(ratio)
 ```
 - Returns a ratio of the minimum of width, height and ratio
 
+___
 ```javascript
 ArtShip.remap(value, min_value, max_value, new_min_value, new_max_value)
 ```
 - Returns a remapped value from *min_value, max_value* to *new_min_value, new_max_value*
 
+___
 ```javascript
 ArtShip.return_pixel_image()
 ```
@@ -123,6 +136,7 @@ for (let x = 0; x < this.width; x++) {
 ```
 
 
+___
 ```javascript
 ArtShip.image_pixel_to_vector(pixel_image)
 ```
