@@ -8,10 +8,10 @@ context.lineWidth = 2;
 context.strokeStyle = 'black';
 
 circles = [];
-min_radius = 2;
+min_radius = 4;
 max_radius = size / 5;
-total_circles = size * 3;
-create_circles_attempts = size * 3;
+total_circles = size;
+create_circles_attempts = size;
 
 function create_and_draw_circle() {
     let new_circle;

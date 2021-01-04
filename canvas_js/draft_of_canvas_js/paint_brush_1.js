@@ -8,7 +8,7 @@ canvas.height = 500;
 const edge = 70;
 let drawing = false;
 
-const mouse = {
+mouse = {
     x: null,
     y: null
 }
