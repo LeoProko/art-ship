@@ -40,14 +40,17 @@ for (let i = 0; i < img.ratio(70); i++) {
 }
 
 
-pixel_image = img.return_pixel_image();
-for (let i = 0; i < pixel_image.data.length; i += 4 * 40) {
-    if (i % pixel_image.width === 0)
-        i += 4 * 40 * pixel_image.width;
-    pixel_image.data[i + 0] = 0;  // R value
-    pixel_image.data[i + 1] = 0;    // G value
-    pixel_image.data[i + 2] = 0;  // B value
-    pixel_image.data[i + 3] = 255;  // A value
+pixel_image = img.pixel_image();
+pixels = img.pixels(pixel_image);
+step = img.ratio(100);
+for (let x = step; x < pixel_image.width; x += step) {
+    for (let y = step; y < pixel_image.height; y += step) {
+        i = img.index(x, y);
+        pixels[i + 0] = 0;  // R value
+        pixels[i + 1] = 0;    // G value
+        pixels[i + 2] = 0;  // B value
+        pixels[i + 3] = 255;  // A value
+    }
 }
 
-img.image_pixel_to_vector(pixel_image);
+img.pixel_to_vector(pixel_image);
