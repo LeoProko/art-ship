@@ -73,7 +73,6 @@ class ArtShip {
         }
         let i = coordinates.length - 2;
         this.context.quadraticCurveTo(x_average, y_average, coordinates[i + 1][0], coordinates[i + 1][1]);
-        this.context.closePath();
     }
 
     random(min_value, max_value) {
