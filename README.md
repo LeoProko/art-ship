@@ -5,8 +5,7 @@ This is just a cool repository where you can see the process of creating **hybri
 ---
 
 ### The works available for viewing could be found here:
-- p5_js/main_page.html
-- canvas_js/draft_of_canvas_js/index.html
+- canvas_js/main.html (run the page via localhost)
 
 ---
 

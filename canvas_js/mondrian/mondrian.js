@@ -1,8 +1,8 @@
 canvas = document.getElementById('mondrian');
 context = canvas.getContext('2d');
 
-size = 500;
-canvas.width = size;
+size = 700;
+canvas.width = 2 * size;
 canvas.height = size;
 context.lineWidth = 6;
 step = size / 7;
@@ -13,7 +13,7 @@ num_color_blocks = 7;
 squares = [{
     x: 0,
     y: 0,
-    width: size,
+    width: 2 * size,
     height: size
 }];
 
@@ -71,7 +71,7 @@ function split_on_y(square, split_at) {
     squares.push(square_b);
 }
 
-for (let i = 0; i < size; i += step) {
+for (let i = 0; i < 2 * size; i += step) {
     split_squares_width({x: i});
     split_squares_width({y: i});
 }
