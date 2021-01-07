@@ -6,6 +6,9 @@ This is just a cool repository where you can see the process of creating **hybri
 
 ### The works available for viewing could be found here:
 - canvas_js/main.html (run the page via localhost)
+```shell
+python3 -m http.server
+```
 
 ---
 
