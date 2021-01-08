@@ -5,9 +5,9 @@ ag = new ArtShip(size, 2 * size, canvas);
 context = ag.context;
 ag.background(0, 0, 0);
 
-grid_step_x = ag.ratio(150);
-grid_step_y = ag.ratio(100);
-let angle_velocity = 4;
+grid_step_x = ag.ratio(70);
+grid_step_y = ag.ratio(50);
+let angle_velocity = 200;
 
 function return_grid() {
     let grid = [];
@@ -46,7 +46,7 @@ function return_grid() {
 
 
 particles = ag.ratio(20);
-density = ag.ratio(100);
+density = ag.ratio(60);
 angle_grid = return_grid();
 let curve;
 
@@ -59,7 +59,7 @@ function draw_angle_grid() {
         let prev_x = x;
         let prev_y = y;
         let angle;
-        for (let j = 0; j < ag.width; j++) {
+        for (let j = 0; j < ag.width * 10; j++) {
             prev_x = x;
             prev_y = y;
             if (0 < x && x < ag.int(ag.width / grid_step_x) && 0 < y && y < ag.int(ag.height / grid_step_y)) {

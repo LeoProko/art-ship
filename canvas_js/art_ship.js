@@ -25,7 +25,9 @@ class ArtShip {
     }
 
     background(red = 255, green = 255, blue = 255, alpha = 1) {
+        this.context.beginPath();
         this.context.rect(0, 0, this.width, this.height);
+        this.context.closePath();
         this.fill(red, green, blue, alpha);
     }
 
