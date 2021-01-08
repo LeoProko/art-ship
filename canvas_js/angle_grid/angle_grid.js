@@ -5,9 +5,9 @@ ag = new ArtShip(size, 2 * size, canvas);
 context = ag.context;
 ag.background(0, 0, 0);
 
-grid_step_x = ag.ratio(70);
+grid_step_x = ag.ratio(100);
 grid_step_y = ag.ratio(50);
-let angle_velocity = 200;
+let angle_velocity = 150;
 
 function return_grid() {
     let grid = [];
@@ -78,7 +78,7 @@ function draw_angle_grid() {
         }
         if (curve.length > 0) {
             ag.curve(curve);
-            ag.stroke(0.2, 255, 255, 255, 0.2);
+            ag.stroke(0.2, 255, 0, 0, 0.2);
         }
     }
     requestAnimationFrame(draw_angle_grid);

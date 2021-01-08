@@ -4,32 +4,33 @@ size = 700;
 img = new ArtShip(size, 2 * size, canvas);
 context = img.context;
 
-step = img.ratio(10);
+let step = img.ratio(10);
+let dens = img.ratio(20);
 
 function brush_hair (coordinates) {
-    for (let brush_stroke = 0; brush_stroke < img.ratio(30); brush_stroke++) {
+    for (let brush_stroke = 0; brush_stroke < img.ratio(1); brush_stroke++) {
         let points = [];
         for (let coordinate of coordinates) {
-            x = img.random(coordinate[0] - img.ratio(60), coordinate[0] + img.ratio(60));
-            y = img.random(coordinate[1] - img.ratio(60), coordinate[1] + img.ratio(60));
+            x = img.random(coordinate[0] - dens, coordinate[0] + dens);
+            y = img.random(coordinate[1] - dens, coordinate[1] + dens);
             points.push([x, y]);
         }
 
         for (let point of points) {
-            img.circle(point[0], point[1], img.ratio(100));
-            img.fill(255, 255, 0, 0.2);
+            img.circle(point[0], point[1], img.ratio(size));
+            img.fill(255, 255, 0, 0.05);
         }
 
         img.curve(points);
-        img.stroke(2, 255, 255, 255, 0.5);
+        img.stroke(0.2, 255, 255, 255, 0.3);
     }
 }
 
 function draw() {
     img.background(0, 0, 0);
-    for (let i = 0; i < img.ratio(70); i++) {
+    for (let i = 0; i < img.ratio(100); i++) {
         let coordinates = [];
-        for (let j = 0; j < img.ratio(70); j++) {
+        for (let j = 0; j < img.ratio(150); j++) {
             let x = img.random(0, 1);
             let y = img.random(-0.5, 1.5);
             coordinates.push([x * img.width, y * img.height]);
