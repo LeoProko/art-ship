@@ -183,6 +183,12 @@ ArtShip.draw_image(image, upper_left_corner_x, upper_left_corner_y, width, heigh
 
 ___
 ```javascript
+ArtShip.save_image()
+```
+- Save the image
+
+___
+```javascript
 ArtShip.mouse_update()
 ```
 - Add coordinates of mouse and pressed flag in ArtShip.mouse
