@@ -2,7 +2,6 @@ body {
     background-color: black;
     font-family: arial;
     margin: 2% auto;
-    width: 1400px;
     color: white;
 }
 
@@ -11,11 +10,21 @@ body {
     font-size: 20px;
 }
 
+#footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 90%;
+    text-align: right;
+}
+
 canvas {
     border: 20px solid white;
     margin: 200px auto;
     display: block;
     position: absolute;
+    width: 90%;
+    max-width: 1400px;
     top: 0;
     bottom: 0;
     left: 0;
@@ -51,10 +60,30 @@ a:active {
     color: #5c5b5b;
 }
 
-#footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
+button {
+    background: black;
+    color: white;
+    border-color: white;
+    display: inline-block;
+    margin: 3px;
+    font-size: 16px;
+    border-radius: 10%;
+}
+
+button:hover {
+    background: #ff3f3f;
+    color: white;
+    border-radius: 13%;
+}
+
+button:active {
+    background: #ff0000;
+}
+
+.buttons_container {
+    text-align: center;
+    margin: 800px auto;
+    padding: 15px;
     width: 90%;
-    text-align: right;
+    max-width: 1400px;
 }
