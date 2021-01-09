@@ -142,6 +142,15 @@ class ArtShip {
         this.context.drawImage(image, upper_left_corner_x, upper_left_corner_y, width, height);
     }
 
+    save_image() {
+        let image_to_save = document.createElement('a');
+        document.body.appendChild(image_to_save);
+        image_to_save.href = canvas.toDataURL();
+        image_to_save.download = 'art_ship_lab.png';
+        image_to_save.click();
+        image_to_save.remove();
+    }
+
     mouse_update() {
         this.canvas.addEventListener('mousemove', event => {
             this.mouse.x = event.offsetX;
