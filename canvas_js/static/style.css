@@ -23,8 +23,8 @@ canvas {
     margin: 200px auto;
     display: block;
     position: absolute;
-    width: 90%;
-    max-width: 1400px;
+    /*width: 90%;*/
+    /*max-width: 1400px;*/
     top: 0;
     bottom: 0;
     left: 0;

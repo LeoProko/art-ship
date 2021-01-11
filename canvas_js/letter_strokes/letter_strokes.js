@@ -1,16 +1,17 @@
 canvas = document.getElementById('letter_strokes');
 
 let size = 700;
-let img = new ArtShip(1 * size, 2 * size, canvas);
+// let img = new ArtShip(2 / 3 * 4 * size, 2 * size, canvas);
+let img = new ArtShip(4 / 3 * size, size, canvas);
 let context = img.context;
 img.background(0, 0, 0);
 img.mouse_update();
 
-let num_in_column = 2;
-let dens = img.ratio(18);
-let cor_dens = img.ratio(2 * num_in_column);
+let num_in_column = 4;
+let dens = img.ratio(img.ratio(25));
+let cor_dens = img.ratio(1.5 * num_in_column);
 let pillar_dens = cor_dens / 5;
-let lines_num = 150;
+let lines_num = img.ratio(4);
 
 let red = 200;
 let green = 220;
@@ -52,6 +53,6 @@ function get_noisy_stroke(stroke) {
 
 for (let y = img.height / num_in_column / 2; y < img.height; y += img.height / num_in_column) {
     for (let x = img.height / num_in_column / 2; x < img.width; x += img.height / num_in_column) {
-        draw(x, y);
+        draw(x + img.random(-pillar_dens, pillar_dens), y + img.random(-pillar_dens, pillar_dens));
     }
 }
