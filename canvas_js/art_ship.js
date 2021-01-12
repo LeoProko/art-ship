@@ -102,17 +102,21 @@ class ArtShip {
             value = min_value;
         else if (value > max_value)
             value = max_value;
-        if (new_min_value <= new_max_value) {
-            let coefficient = this.abs((new_max_value - new_min_value) / (max_value - min_value));
-            return (value - min_value) * coefficient;
-        }
-        else {
+        if (new_min_value >= new_max_value) {
             new_max_value = [new_min_value, new_min_value = new_max_value][0];
-            let coefficient = this.abs((new_max_value - new_min_value) / (max_value - min_value));
-            let new_value =  (value - min_value) * coefficient;
-            return new_max_value + new_min_value - new_value;
-
         }
+
+        let max_value_norm = max_value - min_value;
+        let new_max_value_norm = new_max_value - new_min_value;
+        let new_value = value - min_value;
+        new_value = new_value / max_value_norm * new_max_value_norm;
+        new_value += new_min_value;
+
+        if (new_min_value >= new_max_value) {
+            new_value = new_max_value - (new_value - new_min_value);
+        }
+
+        return new_value;
     }
 
     load_image(path) {

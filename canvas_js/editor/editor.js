@@ -20,14 +20,15 @@ let color_random = 100;
 
 function draw() {
     img.background(0, 0, 0);
-
     if (background === "liner"){
         liner_background();
     }
-
+    else if (background === "squared"){
+        squared_background();
+    }
     strokes.push(current_stroke.slice());
     for (let stroke of strokes) {
-        if (stroke === []) continue;
+        if (stroke === [] || stroke.length === 0) continue;
         for (let i = 0; i < lines_num; i++) {
             let to_draw_stroke;
             if (curve_type === "usual") {
@@ -35,11 +36,19 @@ function draw() {
                 if (to_draw_stroke.length === 1) {
                     to_draw_stroke.push(to_draw_stroke[0]);
                 }
+                to_draw_stroke = get_noisy_stroke(to_draw_stroke);
             }
             else if (curve_type === "one_back") {
                 to_draw_stroke = get_one_back_curve(stroke);
+                to_draw_stroke = get_noisy_stroke(to_draw_stroke);
             }
-            to_draw_stroke = get_noisy_stroke(to_draw_stroke);
+            else if (curve_type === "calligraphy") {
+                to_draw_stroke = stroke;
+                if (to_draw_stroke.length === 1) {
+                    to_draw_stroke.push(to_draw_stroke[0]);
+                }
+                to_draw_stroke = get_calligraphy_stroke(to_draw_stroke);
+            }
             if (to_draw_stroke[0] === undefined) {
                 break;
             }
@@ -62,6 +71,29 @@ function get_one_back_curve(stroke) {
     }
     new_stroke.push(stroke[stroke.length - 1]);
     return new_stroke;
+}
+
+function get_calligraphy_stroke(stroke) {
+    let calligraphy_stroke = [];
+    let first_stroke_dens = dens / img.random(1, 15);
+    let x = stroke[0][0] + img.random(-first_stroke_dens, first_stroke_dens);
+    let y = stroke[0][1] + img.random(-first_stroke_dens, first_stroke_dens);
+    calligraphy_stroke.push([x, y]);
+    for (let i = 1; i < stroke.length; i++) {
+        let width_drop = img.abs(stroke[i][0] - stroke[i - 1][0]);
+        let height_drop = img.abs(stroke[i][1] - stroke[i - 1][1]);
+        let total_drop_tg;
+        if (width_drop !== 0)
+            total_drop_tg = height_drop / width_drop;
+        else
+            total_drop_tg = 1;
+        let total_drop_angle = Math.atan(total_drop_tg);
+        let stroke_dens = img.remap(total_drop_angle, 0, Math.PI / 2, dens / 15, dens);
+        x = stroke[i][0] + img.random(-stroke_dens, stroke_dens);
+        y = stroke[i][1] + img.random(-stroke_dens, stroke_dens);
+        calligraphy_stroke.push([x, y]);
+    }
+    return calligraphy_stroke;
 }
 
 function get_noisy_stroke(stroke) {
@@ -93,13 +125,27 @@ function liner_background() {
         for (let x = 0; x <= img.width; x += step_x) {
             line.push([x, y + img.random(-line_dens, line_dens)]);
         }
-        img.print(line);
         img.curve(line);
         img.stroke(1,
             255 - img.random(0, 50),
             255 - img.random(0, 50),
             255 - img.random(0, 50),
             0.2);
+    }
+}
+
+function squared_background() {
+    let square_step = img.ratio(20);
+    let square_dens = square_step * 1
+    for (let x = 0; x <= img.width; x += square_step) {
+        for (let y = 0; y <= img.height; y += square_step) {
+            img.rect(x, y, square_step + img.random(-square_dens, square_dens), square_step + img.random(-square_dens, square_dens));
+            let color_dens = 50;
+            let red = 200 + img.random(-color_dens, color_dens);
+            let green = 50 + img.random(-color_dens, color_dens);
+            let blue = 150 + img.random(-color_dens, color_dens);
+            img.fill(red, green, blue, 0.6);
+        }
     }
 }
 
@@ -184,6 +230,9 @@ canvas.addEventListener('mousedown', function (event) {
                 case "usual":
                     curve_type = "usual"
                     return draw();
+                case "calligraphy":
+                    curve_type = "calligraphy"
+                    return draw();
                 default:
                     curve_type = "one_back"
                     return draw();
@@ -200,6 +249,9 @@ canvas.addEventListener('mousedown', function (event) {
             switch (evt.target.value) {
                 case "liner":
                     background = "liner"
+                    return draw();
+                case "squared":
+                    background = "squared"
                     return draw();
                 case "none":
                     background = "none"
