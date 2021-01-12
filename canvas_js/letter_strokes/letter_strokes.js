@@ -9,8 +9,8 @@ img.mouse_update();
 
 let num_in_column = 4;
 let dens = img.ratio(img.ratio(25));
-let cor_dens = img.ratio(1.5 * num_in_column);
-let pillar_dens = cor_dens / 5;
+let cor_dens = img.ratio(1.4 * num_in_column);
+let pillar_dens = cor_dens / 6;
 let lines_num = img.ratio(4);
 
 let red = 200;
@@ -20,7 +20,7 @@ let color_random = 100;
 
 function draw(x, y) {
     let stroke = []
-    let points = img.int(img.random(4, 11));
+    let points = img.int(img.random(4, 12));
     let random = img.random(0.4, 1);
     for (let i = 0; i < points; i++) {
         stroke.push([x + img.random(-cor_dens, cor_dens), y + img.random(-cor_dens, cor_dens)]);
@@ -51,8 +51,20 @@ function get_noisy_stroke(stroke) {
     return noisy_stroke;
 }
 
+for (let y = 0; y < img.height; y += img.height / num_in_column) {
+    img.line(0, y, img.width, y);
+    img.stroke(10, 255, 255, 255, 0.05);
+}
+for (let x = 0; x < img.width; x += img.height / num_in_column) {
+    img.line(x, 0, x, img.height);
+    img.stroke(10, 255, 255, 255, 0.05);
+}
+
 for (let y = img.height / num_in_column / 2; y < img.height; y += img.height / num_in_column) {
     for (let x = img.height / num_in_column / 2; x < img.width; x += img.height / num_in_column) {
-        draw(x + img.random(-pillar_dens, pillar_dens), y + img.random(-pillar_dens, pillar_dens));
+        if (Math.random() > 0.5)
+            draw(x + img.random(-pillar_dens, pillar_dens), y + img.random(-pillar_dens, pillar_dens));
+        else
+            draw(x, y);
     }
 }
