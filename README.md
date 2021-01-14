@@ -87,6 +87,14 @@ ArtShip.rect(center_x, center_y, width, height)
 
 ___
 ```javascript
+ArtShip.polygon(coordinates)
+```
+- Make a polygon by coordiantes in format [[x_0, y_0], ...] <br>
+  *Default parameters*
+  - coodinates = [[0, 0]]
+
+___
+```javascript
 ArtShip.curve(coordinates)
 ```
 - Make a quadratic curve shape through given coordinates

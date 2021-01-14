@@ -64,6 +64,15 @@ class ArtShip {
         this.context.closePath();
     }
 
+    polygon(coordinates = [[0, 0,]]) {
+        this.context.beginPath();
+        this.context.moveTo(coordinates[0][0], coordinates[0][1]);
+        for (let i = 1; i < coordinates.length; ++i) {
+            this.context.lineTo(coordinates[i][0], coordinates[i][1]);
+        }
+        this.context.closePath();
+    }
+
     curve(coordinates) {
         this.context.beginPath();
         this.context.moveTo(coordinates[0][0], coordinates[0][1]);
