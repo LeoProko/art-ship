@@ -12,6 +12,35 @@ python3 -m http.server
 
 ---
 
+## LeoBrush module
+This module will help you to draw using brushes
+
+Now you can find this module at **canvas_js/leo_brush.js**
+
+### Initialization
+
+```javascript
+let canvas = document.getElementById('canvas_name');
+let img = new ArtShip(height, width, canvas);
+let brush = new LeoBrush(img)
+```
+
+### Functions
+
+___
+```javascript
+LeoBrush.calligraphy(coordinates, red, green, blue);
+```
+- Make calligraphy stroke via given coordinates in a format: **[[x_1, y_1], ...]**
+
+  *Default parameters*
+  - red = 0
+  - green = 0
+  - blue = 0
+
+
+---
+
 ## ArtShip module
 This module will help you to work comfortably with graphics in *Canvas Api JavaScript*
 
@@ -20,8 +49,8 @@ Now you can find this module at **canvas_js/art_ship.js**
 ### Initialization
 
 ```javascript
-canvas = document.getElementById('canvas_name');
-name = new ArtShip(height, width, canvas);
+let canvas = document.getElementById('canvas_name');
+let img = new ArtShip(height, width, canvas);
 ```
 
 ### Functions
