@@ -4,19 +4,19 @@ let img = new ArtShip(3 * size, 1 * size, canvas);
 
 function draw() {
     img.background(0, 0, 0);
-    let angles_num, radius, x_center, y_center, coordinates, dens, smooth_dens, num_iterations, num_recurents;
+    let angles_num, radius, x_center, y_center, coordinates, dens, dens_decrease, smooth_dens, num_iterations, num_recurents;
 
     // 1-st variant
-    angles_num = 20;
+    angles_num = 30;
     radius = img.ratio(4);
     x_center = img.width / 2;
     y_center = 1 * img.width / 2;
     coordinates = make_default_polygon(angles_num, radius, x_center, y_center);
-    dens = radius * 0.2;
-    dens_decrease = 3;
-    smooth_dens = 5;
+    dens = radius * 0.4;
+    dens_decrease = 2;
+    smooth_dens = 4;
     num_iterations = 60;
-    num_recurents = 4;
+    num_recurents = 7;
     draw_recurent_polygon(coordinates, num_recurents, radius, dens, dens_decrease, smooth_dens, num_iterations);
 
     // 2-nd variant
@@ -61,7 +61,6 @@ function draw_recurent_polygon(coordinates, num_recurents, radius, dens, dens_de
         coordinates = twist_polygon(coordinates, radius, dens);
         dens /= dens_decrease;
     }
-    let = 35;
     draw_smooth_polygon(coordinates, num_iterations, smooth_dens);
 }
 
