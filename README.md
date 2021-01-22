@@ -12,36 +12,7 @@ python3 -m http.server
 
 ---
 
-## LeoBrush module
-This module will help you to draw using brushes
-
-Now you can find this module at **canvas_js/leo_brush.js**
-
-### Initialization
-
-```javascript
-let canvas = document.getElementById('canvas_name');
-let img = new ArtShip(height, width, canvas);
-let brush = new LeoBrush(img)
-```
-
-### Functions
-
-___
-```javascript
-LeoBrush.calligraphy(coordinates, red, green, blue);
-```
-- Make calligraphy stroke via given coordinates in a format: **[[x_1, y_1], ...]**
-
-  *Default parameters*
-  - red = 0
-  - green = 0
-  - blue = 0
-
-
----
-
-## ArtShip module
+# ArtShip module
 This module will help you to work comfortably with graphics in *Canvas Api JavaScript*
 
 Now you can find this module at **canvas_js/art_ship.js**
@@ -238,3 +209,59 @@ ArtShip.resize_canvas(width, height)()
   *Default parameters*
   - width = canvas width
   - height = canvas height
+
+---
+
+
+# LeoBrush module
+This module will help you to draw using brushes
+
+Now you can find this module at **canvas_js/leo_brush.js**
+
+### Initialization
+
+```javascript
+let canvas = document.getElementById('canvas_name');
+let img = new ArtShip(height, width, canvas);
+let brush = new LeoBrush(img)
+```
+
+### Functions
+
+___
+```javascript
+LeoBrush.calligraphy(coordinates, red, green, blue, random_color);
+
+```
+- Make calligraphy stroke via given coordinates in a format: **[[x_1, y_1], ...]**
+
+  *Default parameters*
+  - red = 0
+  - green = 0
+  - blue = 0
+  - random_color = false
+
+___
+```javascript
+LeoBrush.one_back(coordinates, red, green, blue, random_color);
+
+```
+- Make one back stroke via given coordinates in a format: **[[x_1, y_1], ...]**
+
+  *Default parameters*
+  - red = 0
+  - green = 0
+  - blue = 0
+  - random_color = false
+___
+```javascript
+LeoBrush.brush(coordinates, red, green, blue, random_color);
+
+```
+- Make usual brush stroke via given coordinates in a format: **[[x_1, y_1], ...]**
+
+  *Default parameters*
+  - red = 0
+  - green = 0
+  - blue = 0
+  - random_color = false
