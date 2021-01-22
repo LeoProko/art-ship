@@ -1,122 +1,83 @@
-canvas = document.getElementById('editor');
-
-size = 700;
-img = new ArtShip(1 * size, 2 * size, canvas);
-context = img.context;
-img.background(0, 0, 0);
+let canvas = document.getElementById('editor');
+let size = 700;
+let img = new ArtShip(1 * size, 2 * size, canvas);
+let brush = new LeoBrush(img);
+let context = img.context;
 img.mouse_update();
 
-let dens = img.ratio(20);
-let lines_num = 200;
-
-let strokes = []
-let current_stroke = []
+let strokes = [];
+current_stroke = [[], "one_back"];
 let curve_type = "one_back"
-let background = "none";
-let red = img.random(0, 255);
-let green = img.random(0, 255);
-let blue = img.random(0, 255);
-let color_random = 100;
+let background = "black";
+let red = img.random(100, 255);
+let green = img.random(100, 255);
+let blue = img.random(100, 255);
 
 function draw() {
-    img.background(0, 0, 0);
-    if (background === "liner"){
+    if (background === "none"){
+        img.background(0, 0, 0, 0);
+    }
+    else if (background === "black"){
+        img.background(0, 0, 0);
+    }
+    else if (background === "white"){
+        img.background(255, 255, 255);
+    }
+    else if (background === "liner"){
         liner_background();
     }
     else if (background === "squared"){
         squared_background();
     }
     strokes.push(current_stroke.slice());
-    for (let stroke of strokes) {
-        if (stroke === [] || stroke.length === 0) continue;
-        for (let i = 0; i < lines_num; i++) {
-            let to_draw_stroke;
-            if (curve_type === "usual") {
-                to_draw_stroke = stroke;
-                if (to_draw_stroke.length === 1) {
-                    to_draw_stroke.push(to_draw_stroke[0]);
-                }
-                to_draw_stroke = get_noisy_stroke(to_draw_stroke);
-            }
-            else if (curve_type === "one_back") {
-                to_draw_stroke = get_one_back_curve(stroke);
-                to_draw_stroke = get_noisy_stroke(to_draw_stroke);
-            }
-            else if (curve_type === "calligraphy") {
-                to_draw_stroke = stroke;
-                if (to_draw_stroke.length === 1) {
-                    to_draw_stroke.push(to_draw_stroke[0]);
-                }
-                to_draw_stroke = get_calligraphy_stroke(to_draw_stroke);
-            }
-            if (to_draw_stroke[0] === undefined) {
-                break;
-            }
-            img.curve(to_draw_stroke);
-            img.stroke(1,
-                red + img.random(-color_random, color_random),
-                green + img.random(-color_random, color_random),
-                blue + img.random(-color_random, color_random),
-                0.4);
+    for (let i = 0; i < strokes.length; ++i) {
+        if (strokes[i] === undefined || strokes[i][0] === undefined || strokes[i][0] === [] || strokes[i][0].length === 0) continue;
+        if (curve_type === "usual") {
+            strokes[strokes.length - 1][1] = "usual";
+            current_stroke[1] = "usual";
+        }
+        else if (curve_type === "one_back") {
+            strokes[strokes.length - 1][1] = "one_back";
+            current_stroke[1] = "one_back";
+        }
+        else if (curve_type === "calligraphy") {
+            strokes[strokes.length - 1][1] = "calligraphy";
+            current_stroke[1] = "calligraphy";
+        }
+        if (strokes[i][1] === "usual") {
+            brush.brush(
+                strokes[i][0],
+                red,
+                green,
+                blue,
+                true
+            );
+        }
+        else if (strokes[i][1] === "one_back") {
+            brush.one_back(
+                strokes[i][0],
+                red,
+                green,
+                blue,
+                true
+            );
+
+        }
+        else if (strokes[i][1] === "calligraphy") {
+            brush.calligraphy(
+                strokes[i][0],
+                red,
+                green,
+                blue,
+                true
+            );
         }
     }
     strokes.splice(strokes.length - 1, 1);
 }
 
-function get_one_back_curve(stroke) {
-    let new_stroke = [stroke[0]].slice();
-    for (let i = 1; i < stroke.length - 1; i++) {
-        new_stroke.push(stroke[i].slice());
-        new_stroke.push(stroke[i - 1].slice());
-    }
-    new_stroke.push(stroke[stroke.length - 1]);
-    return new_stroke;
-}
-
-function get_calligraphy_stroke(stroke) {
-    let calligraphy_stroke = [];
-    let first_stroke_dens = dens / img.random(1, 15);
-    let x = stroke[0][0] + img.random(-first_stroke_dens, first_stroke_dens);
-    let y = stroke[0][1] + img.random(-first_stroke_dens, first_stroke_dens);
-    calligraphy_stroke.push([x, y]);
-    for (let i = 1; i < stroke.length; i++) {
-        let width_drop = img.abs(stroke[i][0] - stroke[i - 1][0]);
-        let height_drop = img.abs(stroke[i][1] - stroke[i - 1][1]);
-        let total_drop_tg;
-        if (width_drop !== 0)
-            total_drop_tg = height_drop / width_drop;
-        else
-            total_drop_tg = 1;
-        let total_drop_angle = Math.atan(total_drop_tg);
-        let stroke_dens = img.remap(total_drop_angle, 0, Math.PI / 2, dens / 15, dens);
-        x = stroke[i][0] + img.random(-stroke_dens, stroke_dens);
-        y = stroke[i][1] + img.random(-stroke_dens, stroke_dens);
-        calligraphy_stroke.push([x, y]);
-    }
-    return calligraphy_stroke;
-}
-
-function get_noisy_stroke(stroke) {
-    let noisy_stroke = []
-    for (let j = 0; j < stroke.length; j++) {
-        if (stroke[0] === undefined) {
-            break;
-        }
-        if (j % 2 === 0) {
-            x = stroke[j][0] + img.random(-dens, dens);
-            y = stroke[j][1] + img.random(-dens, dens);
-        }
-        else {
-            let dens_ratio = img.random(0.5, 4);
-            x = stroke[j][0] + img.random(-dens / dens_ratio, dens / dens_ratio);
-            y = stroke[j][1] + img.random(-dens / dens_ratio, dens / dens_ratio);
-        }
-        noisy_stroke.push([x, y]);
-    }
-    return noisy_stroke;
-}
-
 function liner_background() {
+    img.background(0, 0, 0);
     let step_y = img.height / 200;
     let step_x = img.width / 10;
     let line_dens = step_y;
@@ -135,6 +96,7 @@ function liner_background() {
 }
 
 function squared_background() {
+    img.background(0, 0, 0);
     let square_step = img.ratio(20);
     let square_dens = square_step * 1
     for (let x = 0; x <= img.width; x += square_step) {
@@ -149,21 +111,21 @@ function squared_background() {
     }
 }
 
-
 // Buttons functions
 function change_color() {
-    red = img.random(50, 255);
-    green = img.random(0, 200);
+    red = img.random(100, 255);
+    green = img.random(100, 255);
     blue = img.random(100, 255);
     draw();
 }
 
 function shake_strokes() {
+    let deviation = img.ratio(20);
     strokes.push(current_stroke);
     for (let i = 0; i < strokes.length; i++) {
         for (let j = 0; j < strokes[i].length; j++) {
-            strokes[i][j][0] += img.random(-dens, dens);
-            strokes[i][j][1] += img.random(-dens, dens);
+            strokes[i][0][j][0] += img.random(-deviation, deviation);
+            strokes[i][0][j][1] += img.random(-deviation, deviation);
         }
     }
     current_stroke = strokes.splice(strokes.length - 1, 1)[0];
@@ -172,11 +134,11 @@ function shake_strokes() {
 
 function add_stroke() {
     strokes.push(current_stroke);
-    current_stroke = [];
+    current_stroke = [[], "one_back"];
 }
 
 function delete_current_stroke() {
-    current_stroke = [];
+    current_stroke = [[], "one_back"];
     if (strokes.length > 0) {
         current_stroke = strokes[strokes.length - 1];
         strokes.splice(strokes.length - 1, 1);
@@ -185,8 +147,8 @@ function delete_current_stroke() {
 }
 
 function delete_last_point_of_current_stroke() {
-    if (current_stroke.length > 0) {
-        current_stroke.splice(current_stroke.length - 1, 1);
+    if (current_stroke[0].length > 0) {
+        current_stroke[0].splice(current_stroke[0].length - 1, 1);
         draw();
     }
     else {
@@ -198,14 +160,13 @@ function delete_last_point_of_current_stroke() {
 
 function clear() {
     strokes = [];
-    current_stroke = [];
+    current_stroke = [[], "one_back"];
     draw();
 }
 
 function save() {
     img.save_image();
 }
-
 
 // Buttons processing
 canvas.addEventListener('mousedown', function (event) {
@@ -256,12 +217,18 @@ canvas.addEventListener('mousedown', function (event) {
                 case "none":
                     background = "none"
                     return draw();
+                case "black":
+                    background = "black"
+                    return draw();
+                case "white":
+                    background = "white"
+                    return draw();
             }
         });
     }
 })
 
 canvas.addEventListener('mousedown', function (event) {
-    current_stroke.push([img.mouse.x, img.mouse.y]);
+    current_stroke[0].push([img.mouse.x, img.mouse.y]);
     draw();
 })
