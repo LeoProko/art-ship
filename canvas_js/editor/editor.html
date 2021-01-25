@@ -17,8 +17,10 @@
 
       <div id="header"></div>
 
-      <canvas id="editor"></canvas>
-      <script src="editor.js"></script>
+      <div id="canvas_container">
+          <canvas id="editor"></canvas>
+          <script src="editor.js"></script>
+      </div>
 
       <div class="buttons_container">
           <button id="change_color"> Change color </button>
@@ -40,18 +42,16 @@
           <label for="usual"> Usual </label>
           <input type="radio" id="calligraphy" name="curve" value="calligraphy">
           <label for="calligraphy"> Calligraphy </label>
-          <input type="radio" id="cat" name="curve" value="cat">
-          <label for="cat"> Cat </label>
+          <input type="radio" id="pastel" name="curve" value="pastel">
+          <label for="pastel"> Pastel </label>
 
           <br>
 
           Background:
-          <input type="radio" id="none" name="background" value="none">
-          <label for="none"> None </label>
           <input type="radio" id="black" name="background" value="black" checked>
-          <label for="none"> Black </label>
+          <label for="black"> Black </label>
           <input type="radio" id="white" name="background" value="white">
-          <label for="none"> White </label>
+          <label for="white"> White </label>
           <input type="radio" id="liner" name="background" value="liner">
           <label for="liner"> Liner </label>
           <input type="radio" id="squared" name="background" value="squared">

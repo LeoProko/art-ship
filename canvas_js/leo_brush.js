@@ -5,14 +5,8 @@ class LeoBrush {
     // --------------------
 
     // Calligraphy brush
-    calligraphy(coordinates, red = 0, green = 0, blue = 0, random_color = false) {
-        let discoloration;
-        if (random_color) {
-            discoloration = 100;
-        }
-        else {
-            discoloration = 0;
-        }
+    calligraphy(coordinates, red = 0, green = 0, blue = 0) {
+        let discoloration = 100;
         if (coordinates === undefined || coordinates[0] === undefined) {
             return;
         }
@@ -61,14 +55,8 @@ class LeoBrush {
     // --------------------
 
     //One Back
-    one_back(coordinates, red = 0, green = 0, blue = 0, random_color = false) {
-        let discoloration;
-        if (random_color) {
-            discoloration = 100;
-        }
-        else {
-            discoloration = 0;
-        }
+    one_back(coordinates, red = 0, green = 0, blue = 0) {
+        let discoloration = 100;
         let stroke_repetitions = this.art_ship.ratio(8);
         while (stroke_repetitions--) {
             let draw_stroke = this.#get_one_back_curve(coordinates);
@@ -122,14 +110,8 @@ class LeoBrush {
     // --------------------
 
     //Brush
-    brush(coordinates, red = 0, green = 0, blue = 0, random_color = false) {
-        let discoloration;
-        if (random_color) {
-            discoloration = 100;
-        }
-        else {
-            discoloration = 0;
-        }
+    brush(coordinates, red = 0, green = 0, blue = 0) {
+        let discoloration = 100;
         let stroke_repetitions = this.art_ship.ratio(8);
         while (stroke_repetitions--) {
             let draw_stroke = this.#get_noisy_stroke(coordinates);
@@ -148,35 +130,33 @@ class LeoBrush {
     }
     // --------------------
     
-    // Cat
-    cat(coordinates, red = 0, green = 0, blue = 0, random_color = false) {
-        let radius = this.art_ship.ratio(200);
+    // Pastel
+    pastel(coordinates, red = 0, green = 0, blue = 0, random_color = false) {
+        let radius = this.art_ship.ratio(50);
         for (let i = 0; i < coordinates.length - 1; ++i) {
             let step = Math.sqrt((coordinates[i + 1][0] - coordinates[i][0]) ** 2 + (coordinates[i + 1][1] - coordinates[i][1]) ** 2) / (radius * 2);
-            for (let s = 0; s < step; s += step / 5) {
+            for (let s = 0; s < step; s += 0.7) {
                 let x = coordinates[i][0] + (coordinates[i + 1][0] - coordinates[i][0]) / step * s;
                 let y = coordinates[i][1] + (coordinates[i + 1][1] - coordinates[i][1]) / step * s;
-                this.art_ship.print(x, y);
-                this.#cat_brush_dot(coordinates[i][0], coordinates[i][1]);
+                this.#pastel_brush_dot(x, y, radius);
             }
         }
     }
 
-    #cat_brush_dot(x, y) {
-        let angles_num = 10;
-        let radius = this.art_ship.ratio(200);
+    #pastel_brush_dot(x, y, radius) {
+        let angles_num = radius * 0.6;
         let coordinates_of_polygon = this.#make_default_polygon(angles_num, radius, x, y);
-        let dens = radius * 0.4;
-        let dens_decrease = 2;
-        let smooth_dens = 4;
-        let num_iterations = 60;
-        let num_recurents = 7;
-        this.#draw_recurent_polygon(coordinates_of_polygon, num_recurents, radius, dens, dens_decrease, smooth_dens, num_iterations);
+        let thickness = radius * 0.5;
+        let thickness_decrease = 2;
+        let smooth_thickness = radius * 0.7;
+        let num_iterations = 10;
+        let num_recurrent = 3;
+        this.#draw_recurrent_polygon(coordinates_of_polygon, num_recurrent, radius, thickness, thickness_decrease, smooth_thickness, num_iterations);
     }
 
-    #make_default_polygon(andles_num, radius, x0, y0) {
+    #make_default_polygon(angles_num, radius, x0, y0) {
         let coordiantes_of_polygon = [];
-        for (let angle = 0; angle < 2 * Math.PI; angle += 2 * Math.PI / andles_num) {
+        for (let angle = 0; angle < 2 * Math.PI; angle += 2 * Math.PI / angles_num) {
             let x = x0 + Math.cos(angle) * radius;
             let y = y0 + Math.sin(angle) * radius;
             coordiantes_of_polygon.push([x, y]);
@@ -184,20 +164,20 @@ class LeoBrush {
         return coordiantes_of_polygon;
     }
 
-    #draw_recurent_polygon(coordinates_of_polygon, num_recurents, radius, dens, dens_decrease, smooth_dens, num_iterations) {
-        while (num_recurents--) {
-            coordinates_of_polygon = this.#twist_polygon(coordinates_of_polygon, radius, dens);
-            dens /= dens_decrease;
+    #draw_recurrent_polygon(coordinates_of_polygon, num_recurrent, radius, thickness, thickness_decrease, smooth_thickness, num_iterations) {
+        while (num_recurrent--) {
+            coordinates_of_polygon = this.#twist_polygon(coordinates_of_polygon, radius, thickness);
+            thickness /= thickness_decrease;
         }
-        this.#draw_smooth_polygon(coordinates_of_polygon, num_iterations, smooth_dens);
+        this.#draw_smooth_polygon(coordinates_of_polygon, num_iterations, smooth_thickness);
     }
 
-    #twist_polygon(coordinates_of_polygon, radius, dens) {
+    #twist_polygon(coordinates_of_polygon, radius, thickness) {
         let new_coordinates = [];
         for (let i = 0; i < coordinates_of_polygon.length - 1; ++i) {
             new_coordinates.push(coordinates_of_polygon[i]);
-            let stroke_height_x = this.art_ship.random(-dens, dens);
-            let stroke_height_y = this.art_ship.random(-dens, dens);
+            let stroke_height_x = this.art_ship.random(-thickness, thickness);
+            let stroke_height_y = this.art_ship.random(-thickness, thickness);
             let x0 = (coordinates_of_polygon[i][0] + coordinates_of_polygon[i + 1][0]) / 2 + stroke_height_x;
             let y0 = (coordinates_of_polygon[i][1] + coordinates_of_polygon[i + 1][1]) / 2 + stroke_height_y;
             new_coordinates.push([x0, y0]);
@@ -206,19 +186,28 @@ class LeoBrush {
         return new_coordinates;
     }
 
-    #draw_smooth_polygon(coordinates_of_polygon, num_iterations, dens) {
+    #draw_smooth_polygon(coordinates_of_polygon, num_iterations, thickness) {
+        let discoloration = 30;
         while (num_iterations--) {
-            coordinates_of_polygon = this.#displace_coordinates(coordinates_of_polygon, dens);
-            this.art_ship.polygon(coordinates_of_polygon);
-            this.art_ship.fill(255, 200, 0, 0.04);
+            let new_coordinates_of_polygon = this.#displace_coordinates(coordinates_of_polygon, thickness);
+            this.art_ship.polygon(new_coordinates_of_polygon);
+            this.art_ship.fill(
+                red + this.art_ship.random(-discoloration, discoloration),
+                green + this.art_ship.random(-discoloration, discoloration),
+                blue + this.art_ship.random(-discoloration, discoloration),
+                0.3
+            );
         }
     }
 
-    #displace_coordinates(coordinates_of_polygon, dens) {
-        for (let i = 0; i < coordinates_of_polygon.length; ++i) {
-            coordinates_of_polygon[i][0] += this.art_ship.random(-dens, dens);
-            coordinates_of_polygon[i][1] += this.art_ship.random(-dens, dens);
+    #displace_coordinates(coordinates, thickness) {
+        let new_coordinates = [];
+        for (let i = 0; i < coordinates.length; ++i) {
+            let x = coordinates[i][0] + this.art_ship.random(-thickness, thickness);
+            let y = coordinates[i][1] + this.art_ship.random(-thickness, thickness);
+            new_coordinates.push([x, y]);
         }
-        return coordinates_of_polygon;
+        return new_coordinates;
     }
+    // --------------------
 }

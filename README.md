@@ -292,13 +292,11 @@ ___
 
 ```javascript
 LeoBrush.calligraphy(coordinates,
-        red, green, blue, random_color);
+        red, green, blue);
 ```
 
 - Make calligraphy stroke via given coordinates
   in a format: ```[[x_1, y_1], ...]```
-  The ```random_color``` boolean parameter shifts
-  each line in the stroke with a random offset
 
   *Default parameters*
   - red = 0
@@ -309,7 +307,7 @@ LeoBrush.calligraphy(coordinates,
 ___
 
 ```javascript
-LeoBrush.one_back(coordinates, red, green, blue, random_color);
+LeoBrush.one_back(coordinates, red, green, blue);
 ```
 
 - Make one back stroke via given
@@ -319,12 +317,11 @@ LeoBrush.one_back(coordinates, red, green, blue, random_color);
   - red = 0
   - green = 0
   - blue = 0
-  - random_color = false
   
 ___
 
 ```javascript
-LeoBrush.brush(coordinates, red, green, blue, random_color);
+LeoBrush.brush(coordinates, red, green, blue);
 ```
 
 - Make usual brush stroke via
@@ -334,4 +331,17 @@ LeoBrush.brush(coordinates, red, green, blue, random_color);
   - red = 0
   - green = 0
   - blue = 0
-  - random_color = false
+
+___
+
+```javascript
+LeoBrush.pastel(coordinates, red, green, blue);
+```
+
+- Make patel stroke via
+  given coordinates in a format: ```[[x_1, y_1], ...]```
+
+  *Default parameters*
+  - red = 0
+  - green = 0
+  - blue = 0

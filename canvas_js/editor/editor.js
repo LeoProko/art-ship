@@ -14,10 +14,7 @@ let green = img.random(100, 255);
 let blue = img.random(100, 255);
 
 function draw() {
-    if (background === "none"){
-        img.background(0, 0, 0, 0);
-    }
-    else if (background === "black"){
+    if (background === "black"){
         img.background(0, 0, 0);
     }
     else if (background === "white"){
@@ -32,29 +29,14 @@ function draw() {
     strokes.push(current_stroke.slice());
     for (let i = 0; i < strokes.length; ++i) {
         if (strokes[i] === undefined || strokes[i][0] === undefined || strokes[i][0] === [] || strokes[i][0].length === 0) continue;
-        if (curve_type === "usual") {
-            strokes[strokes.length - 1][1] = curve_type;
-            current_stroke[1] = curve_type;
-        }
-        else if (curve_type === "one_back") {
-            strokes[strokes.length - 1][1] = curve_type;
-            current_stroke[1] = curve_type;
-        }
-        else if (curve_type === "calligraphy") {
-            strokes[strokes.length - 1][1] = curve_type;
-            current_stroke[1] = curve_type;
-        }
-        else if (curve_type === "cat") {
-            strokes[strokes.length - 1][1] = curve_type;
-            current_stroke[1] = curve_type;
-        }
+        strokes[strokes.length - 1][1] = curve_type;
+        current_stroke[1] = curve_type;
         if (strokes[i][1] === "usual") {
             brush.brush(
                 strokes[i][0],
                 red,
                 green,
                 blue,
-                true
             );
         }
         else if (strokes[i][1] === "one_back") {
@@ -63,7 +45,6 @@ function draw() {
                 red,
                 green,
                 blue,
-                true
             );
 
         }
@@ -73,16 +54,14 @@ function draw() {
                 red,
                 green,
                 blue,
-                true
             );
         }
-        else if (strokes[i][1] === "cat") {
-            brush.cat(
+        else if (strokes[i][1] === "pastel") {
+            brush.pastel(
                 strokes[i][0],
                 red,
                 green,
                 blue,
-                true
             );
         }
     }
@@ -207,8 +186,8 @@ canvas.addEventListener('mousedown', function (event) {
                 case "calligraphy":
                     curve_type = "calligraphy"
                     return draw();
-                case "cat":
-                    curve_type = "cat"
+                case "pastel":
+                    curve_type = "pastel"
                     return draw();
                 default:
                     curve_type = "one_back"
@@ -229,9 +208,6 @@ canvas.addEventListener('mousedown', function (event) {
                     return draw();
                 case "squared":
                     background = "squared"
-                    return draw();
-                case "none":
-                    background = "none"
                     return draw();
                 case "black":
                     background = "black"
