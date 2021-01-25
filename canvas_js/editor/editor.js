@@ -33,16 +33,20 @@ function draw() {
     for (let i = 0; i < strokes.length; ++i) {
         if (strokes[i] === undefined || strokes[i][0] === undefined || strokes[i][0] === [] || strokes[i][0].length === 0) continue;
         if (curve_type === "usual") {
-            strokes[strokes.length - 1][1] = "usual";
-            current_stroke[1] = "usual";
+            strokes[strokes.length - 1][1] = curve_type;
+            current_stroke[1] = curve_type;
         }
         else if (curve_type === "one_back") {
-            strokes[strokes.length - 1][1] = "one_back";
-            current_stroke[1] = "one_back";
+            strokes[strokes.length - 1][1] = curve_type;
+            current_stroke[1] = curve_type;
         }
         else if (curve_type === "calligraphy") {
-            strokes[strokes.length - 1][1] = "calligraphy";
-            current_stroke[1] = "calligraphy";
+            strokes[strokes.length - 1][1] = curve_type;
+            current_stroke[1] = curve_type;
+        }
+        else if (curve_type === "cat") {
+            strokes[strokes.length - 1][1] = curve_type;
+            current_stroke[1] = curve_type;
         }
         if (strokes[i][1] === "usual") {
             brush.brush(
@@ -65,6 +69,15 @@ function draw() {
         }
         else if (strokes[i][1] === "calligraphy") {
             brush.calligraphy(
+                strokes[i][0],
+                red,
+                green,
+                blue,
+                true
+            );
+        }
+        else if (strokes[i][1] === "cat") {
+            brush.cat(
                 strokes[i][0],
                 red,
                 green,
@@ -193,6 +206,9 @@ canvas.addEventListener('mousedown', function (event) {
                     return draw();
                 case "calligraphy":
                     curve_type = "calligraphy"
+                    return draw();
+                case "cat":
+                    curve_type = "cat"
                     return draw();
                 default:
                     curve_type = "one_back"
