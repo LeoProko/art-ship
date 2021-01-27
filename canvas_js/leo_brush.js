@@ -138,12 +138,12 @@ class LeoBrush {
             for (let s = 0; s < step; s += 0.7) {
                 let x = coordinates[i][0] + (coordinates[i + 1][0] - coordinates[i][0]) / step * s;
                 let y = coordinates[i][1] + (coordinates[i + 1][1] - coordinates[i][1]) / step * s;
-                this.#pastel_brush_dot(x, y, radius);
+                this.#pastel_brush_dot(x, y, radius, red, green, blue);
             }
         }
     }
 
-    #pastel_brush_dot(x, y, radius) {
+    #pastel_brush_dot(x, y, radius, red, green, blue) {
         let angles_num = radius * 0.6;
         let coordinates_of_polygon = this.#make_default_polygon(angles_num, radius, x, y);
         let thickness = radius * 0.5;
@@ -151,7 +151,7 @@ class LeoBrush {
         let smooth_thickness = radius * 0.7;
         let num_iterations = 10;
         let num_recurrent = 3;
-        this.#draw_recurrent_polygon(coordinates_of_polygon, num_recurrent, radius, thickness, thickness_decrease, smooth_thickness, num_iterations);
+        this.#draw_recurrent_polygon(coordinates_of_polygon, num_recurrent, radius, thickness, thickness_decrease, smooth_thickness, num_iterations, red, green, blue);
     }
 
     #make_default_polygon(angles_num, radius, x0, y0) {
@@ -164,12 +164,12 @@ class LeoBrush {
         return coordiantes_of_polygon;
     }
 
-    #draw_recurrent_polygon(coordinates_of_polygon, num_recurrent, radius, thickness, thickness_decrease, smooth_thickness, num_iterations) {
+    #draw_recurrent_polygon(coordinates_of_polygon, num_recurrent, radius, thickness, thickness_decrease, smooth_thickness, num_iterations, red, green, blue) {
         while (num_recurrent--) {
             coordinates_of_polygon = this.#twist_polygon(coordinates_of_polygon, radius, thickness);
             thickness /= thickness_decrease;
         }
-        this.#draw_smooth_polygon(coordinates_of_polygon, num_iterations, smooth_thickness);
+        this.#draw_smooth_polygon(coordinates_of_polygon, num_iterations, smooth_thickness, red, green, blue);
     }
 
     #twist_polygon(coordinates_of_polygon, radius, thickness) {
@@ -186,7 +186,7 @@ class LeoBrush {
         return new_coordinates;
     }
 
-    #draw_smooth_polygon(coordinates_of_polygon, num_iterations, thickness) {
+    #draw_smooth_polygon(coordinates_of_polygon, num_iterations, thickness, red, green, blue) {
         let discoloration = 30;
         while (num_iterations--) {
             let new_coordinates_of_polygon = this.#displace_coordinates(coordinates_of_polygon, thickness);

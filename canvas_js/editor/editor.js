@@ -1,17 +1,17 @@
 let canvas = document.getElementById('editor');
 let size = 700;
-let img = new ArtShip(1 * size, 2 * size, canvas);
+let img = new ArtShip(4 * size, 3 * size, canvas);
 let brush = new LeoBrush(img);
 let context = img.context;
 img.mouse_update();
 
 let strokes = [];
-current_stroke = [[], "one_back"];
 let curve_type = "one_back"
 let background = "black";
 let red = img.random(100, 255);
 let green = img.random(100, 255);
 let blue = img.random(100, 255);
+let current_stroke = [[], "one_back", [red, green, blue]];
 
 function draw() {
     if (background === "black"){
@@ -34,34 +34,34 @@ function draw() {
         if (strokes[i][1] === "usual") {
             brush.brush(
                 strokes[i][0],
-                red,
-                green,
-                blue,
+                strokes[i][2][0],
+                strokes[i][2][1],
+                strokes[i][2][2],
             );
         }
         else if (strokes[i][1] === "one_back") {
             brush.one_back(
                 strokes[i][0],
-                red,
-                green,
-                blue,
+                strokes[i][2][0],
+                strokes[i][2][1],
+                strokes[i][2][2],
             );
 
         }
         else if (strokes[i][1] === "calligraphy") {
             brush.calligraphy(
                 strokes[i][0],
-                red,
-                green,
-                blue,
+                strokes[i][2][0],
+                strokes[i][2][1],
+                strokes[i][2][2],
             );
         }
         else if (strokes[i][1] === "pastel") {
             brush.pastel(
                 strokes[i][0],
-                red,
-                green,
-                blue,
+                strokes[i][2][0],
+                strokes[i][2][1],
+                strokes[i][2][2],
             );
         }
     }
@@ -108,6 +108,7 @@ function change_color() {
     red = img.random(100, 255);
     green = img.random(100, 255);
     blue = img.random(100, 255);
+    current_stroke[2] = [red, green, blue];
     draw();
 }
 
@@ -126,11 +127,11 @@ function shake_strokes() {
 
 function add_stroke() {
     strokes.push(current_stroke);
-    current_stroke = [[], "one_back"];
+    current_stroke = [[], "one_back", [red, green, blue]];
 }
 
 function delete_current_stroke() {
-    current_stroke = [[], "one_back"];
+    current_stroke = [[], "one_back", [red, green, blue]];
     if (strokes.length > 0) {
         current_stroke = strokes[strokes.length - 1];
         strokes.splice(strokes.length - 1, 1);
@@ -152,7 +153,7 @@ function delete_last_point_of_current_stroke() {
 
 function clear() {
     strokes = [];
-    current_stroke = [[], "one_back"];
+    current_stroke = [[], "one_back", [red, green, blue]];
     draw();
 }
 
