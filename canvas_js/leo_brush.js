@@ -57,7 +57,8 @@ class LeoBrush {
     //One Back
     one_back(coordinates, red = 0, green = 0, blue = 0) {
         let discoloration = 100;
-        let stroke_repetitions = this.art_ship.ratio(8);
+        // let stroke_repetitions = this.art_ship.ratio(8);
+        let stroke_repetitions = 100;
         while (stroke_repetitions--) {
             let draw_stroke = this.#get_one_back_curve(coordinates);
             draw_stroke = this.#get_noisy_stroke(draw_stroke);
@@ -86,7 +87,8 @@ class LeoBrush {
     }
     
     #get_noisy_stroke(stroke) {
-        let thickness = this.art_ship.ratio(30);
+        // let thickness = this.art_ship.ratio(30);
+        let thickness = 30;
         let noisy_stroke = []
         for (let j = 0; j < stroke.length; j++) {
             if (stroke[0] === undefined) {
@@ -132,7 +134,8 @@ class LeoBrush {
     
     // Pastel
     pastel(coordinates, red = 0, green = 0, blue = 0, random_color = false) {
-        let radius = this.art_ship.ratio(50);
+        // let radius = this.art_ship.ratio(50);
+        let radius = 20;
         for (let i = 0; i < coordinates.length - 1; ++i) {
             let step = Math.sqrt((coordinates[i + 1][0] - coordinates[i][0]) ** 2 + (coordinates[i + 1][1] - coordinates[i][1]) ** 2) / (radius * 2);
             for (let s = 0; s < step; s += 0.7) {
@@ -144,11 +147,11 @@ class LeoBrush {
     }
 
     #pastel_brush_dot(x, y, radius, red, green, blue) {
-        let angles_num = radius * 0.6;
+        let angles_num = radius * 0.5;
         let coordinates_of_polygon = this.#make_default_polygon(angles_num, radius, x, y);
-        let thickness = radius * 0.5;
-        let thickness_decrease = 2;
-        let smooth_thickness = radius * 0.7;
+        let thickness = radius * 0.3;
+        let thickness_decrease = 4;
+        let smooth_thickness = radius * 0.4;
         let num_iterations = 10;
         let num_recurrent = 3;
         this.#draw_recurrent_polygon(coordinates_of_polygon, num_recurrent, radius, thickness, thickness_decrease, smooth_thickness, num_iterations, red, green, blue);

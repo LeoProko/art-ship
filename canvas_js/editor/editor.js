@@ -11,7 +11,7 @@ let background = "black";
 let red = img.random(100, 255);
 let green = img.random(100, 255);
 let blue = img.random(100, 255);
-let current_stroke = [[], "one_back", [red, green, blue]];
+let current_stroke = [[], curve_type, [red, green, blue]];
 
 function draw() {
     if (background === "black"){
@@ -30,7 +30,6 @@ function draw() {
     for (let i = 0; i < strokes.length; ++i) {
         if (strokes[i] === undefined || strokes[i][0] === undefined || strokes[i][0] === [] || strokes[i][0].length === 0) continue;
         strokes[strokes.length - 1][1] = curve_type;
-        current_stroke[1] = curve_type;
         if (strokes[i][1] === "usual") {
             brush.brush(
                 strokes[i][0],
@@ -112,26 +111,46 @@ function change_color() {
     draw();
 }
 
-function shake_strokes() {
-    let deviation = img.ratio(20);
-    strokes.push(current_stroke);
-    for (let i = 0; i < strokes.length; i++) {
-        for (let j = 0; j < strokes[i].length; j++) {
-            strokes[i][0][j][0] += img.random(-deviation, deviation);
-            strokes[i][0][j][1] += img.random(-deviation, deviation);
-        }
+function shake_stroke() {
+    // let deviation = img.ratio(20);
+    // strokes.push(current_stroke);
+    // for (let i = 0; i < strokes.length; i++) {
+    //     for (let j = 0; j < strokes[i].length; j++) {
+    //         strokes[i][0][j][0] += img.random(-deviation, deviation);
+    //         strokes[i][0][j][1] += img.random(-deviation, deviation);
+    //     }
+    // }
+    let deviation = 50;
+    for (let i = 0; i < current_stroke[0].length; i++) {
+        current_stroke[0][i][0] += img.random(-deviation, deviation);
+        current_stroke[0][i][1] += img.random(-deviation, deviation);
     }
-    current_stroke = strokes.splice(strokes.length - 1, 1)[0];
+    draw();
+}
+
+function update_stroke() {
+    draw();
+}
+
+function random_stroke() {
+    strokes.push(current_stroke);
+    current_stroke = [[], curve_type, [red, green, blue]];
+    let num_coordinates = img.int(img.random(4, 10));
+    while (num_coordinates--) {
+        let x = img.random(-img.width * 0.2, img.width * 1.2);
+        let y = img.random(-img.height * 0.2, img.height * 1.2);
+        current_stroke[0].push([x, y]);
+    }
     draw();
 }
 
 function add_stroke() {
     strokes.push(current_stroke);
-    current_stroke = [[], "one_back", [red, green, blue]];
+    current_stroke = [[], curve_type, [red, green, blue]];
 }
 
 function delete_current_stroke() {
-    current_stroke = [[], "one_back", [red, green, blue]];
+    current_stroke = [[], curve_type, [red, green, blue]];
     if (strokes.length > 0) {
         current_stroke = strokes[strokes.length - 1];
         strokes.splice(strokes.length - 1, 1);
@@ -153,7 +172,7 @@ function delete_last_point_of_current_stroke() {
 
 function clear() {
     strokes = [];
-    current_stroke = [[], "one_back", [red, green, blue]];
+    current_stroke = [[], curve_type, [red, green, blue]];
     draw();
 }
 
@@ -164,7 +183,9 @@ function save() {
 // Buttons processing
 canvas.addEventListener('mousedown', function (event) {
     document.querySelector('#change_color').addEventListener("click", change_color);
-    document.querySelector('#shake_strokes').addEventListener("click", shake_strokes);
+    document.querySelector('#shake_stroke').addEventListener("click", shake_stroke);
+    document.querySelector('#update_stroke').addEventListener("click", update_stroke);
+    document.querySelector('#random_stroke').addEventListener("click", random_stroke);
     document.querySelector('#add_stroke').addEventListener("click", add_stroke);
     document.querySelector('#delete_current_stroke').addEventListener("click", delete_current_stroke);
     document.querySelector('#delete_last_point_of_current_stroke').addEventListener("click", delete_last_point_of_current_stroke);
