@@ -73,6 +73,16 @@ class ArtShip {
         this.context.closePath();
     }
 
+    make_regular_polygon(andles_num, radius, x0, y0) {
+        let coordiantes = [];
+        for (let angle = 0; angle < 2 * Math.PI; angle += 2 * Math.PI / andles_num) {
+            let x = x0 + Math.cos(angle) * radius;
+            let y = y0 + Math.sin(angle) * radius;
+            coordiantes.push([x, y]);
+        }
+        return coordiantes;
+    }
+
     curve(coordinates) {
         this.context.beginPath();
         this.context.moveTo(coordinates[0][0], coordinates[0][1]);

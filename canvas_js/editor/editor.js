@@ -1,6 +1,6 @@
 let canvas = document.getElementById('editor');
 let size = 700;
-let img = new ArtShip(4 * size, 3 * size, canvas);
+let img = new ArtShip(1 * size, 2 * size, canvas);
 let brush = new LeoBrush(img);
 let context = img.context;
 img.mouse_update();
