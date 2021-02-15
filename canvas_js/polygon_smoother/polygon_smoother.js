@@ -1,31 +1,34 @@
 canvas = document.getElementById('polygon_smoother');
-let size = 1000;
+let size = 300;
 let img = new ArtShip(4 * size, 3 * size, canvas);
 
 function draw() {
     img.background(0, 0, 0);
     let coordinates, dens, dens_decrease, smooth_dens, num_iterations, num_recurents;
 
-    coordinates = [
-        [0.2 * img.width, 0.2 * img.height],
-        [0.8 * img.width, 0.2 * img.height],
-        [0.8 * img.width, 0.8 * img.height],
-        [0.2 * img.width, 0.8 * img.height],
-        [0.2 * img.width, 0.2 * img.height],
-    ]
-    // coordinates = [];
-    // for (let i = 0; i < 4; ++i) {
-    //     let x = img.random(0, img.width);
-    //     let y = img.random(0, img.height);
-    //     coordinates.push([x, y]);
-    // }
-    // coordinates.sort();
+    // coordinates = [
+    //     [0.3 * img.width, 0.2 * img.height],
+    //     [0.7 * img.width, 0.2 * img.height],
+    //     [0.7 * img.width, 0.5 * img.height],
+    //     [0.7 * img.width, 0.8 * img.height],
+    //     [0.3 * img.width, 0.8 * img.height],
+    //     [0.3 * img.width, 0.5 * img.height],
+    //     [0.3 * img.width, 0.2 * img.height],
+    // ]
+    coordinates = [];
+    for (let i = 0; i < 4; ++i) {
+        let x = img.random(0.4 * img.width, 0.6 * img.width);
+        let y = img.random(0.4 * img.height, 0.6 * img.height);
+        x += img.random(-0.4 * img.width, 0.4 * img.width);
+        y += img.random(-0.4 * img.height, 0.4 * img.height);
+        coordinates.push([x, y]);
+    }
 
     dens = img.ratio(2);
     dens_decrease = 2;
     smooth_dens = 5;
     num_iterations = 100;
-    num_recurents = 5;
+    num_recurents = 3;
     draw_recurrent_polygon(coordinates, num_recurents, dens, dens_decrease, smooth_dens, num_iterations);
 }
 
@@ -54,11 +57,11 @@ function twist_polygon(coordinates, dens) {
 function draw_smooth_polygon(coordinates, num_iterations, dens) {
     while (num_iterations--) {
         coordinates = displace_coordinates(coordinates, dens);
-        img.polygon(coordinates);
+        img.curve(coordinates);
         img.stroke(
             3,
-           180 + img.random(-50, 50),
-            180 + img.random(-50, 50),
+           100 + img.random(-50, 50),
+            100 + img.random(-50, 50),
             200 + img.random(-100, 100),
             0.3);
     }
