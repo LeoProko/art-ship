@@ -1,10 +1,10 @@
-canvas = document.getElementById('test');
+canvas = document.getElementById('random_squares');
 let size = 1200;
 let img = new ArtShip(1 * size, 1 * size, canvas);
 
 function draw() {
     img.background();
-    for (let i = 0; i < img.int(img.random(4, 7)); ++i) {
+    for (let i = 0; i < img.int(img.random(3, 5)); ++i) {
         let x = [];
         let y = [];
         for (let i = 0; i < 2; ++i) {

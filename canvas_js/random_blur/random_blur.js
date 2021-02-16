@@ -1,4 +1,4 @@
-canvas = document.getElementById('test');
+canvas = document.getElementById('random_blur');
 let size = 1200;
 let img = new ArtShip(1 * size, 1 * size, canvas);
 
@@ -25,7 +25,6 @@ function draw() {
             return b[0] - a[0];
         }
     );
-    console.log(squares);
     for (let square of squares) {
         let scale = square[0];
         let coordinates = square[1];
