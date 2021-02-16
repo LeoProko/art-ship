@@ -119,6 +119,14 @@ ArtShip.polygon(coordinates)
 ___
 
 ```javascript
+ArtShip.make_regular_polygon(andles_num, radius, x0, y0)
+```
+
+- Make a regular polygon with given radius with center in ```[x0, y0]```
+
+___
+
+```javascript
 ArtShip.curve(coordinates)
 ```
 
