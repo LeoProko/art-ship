@@ -195,4 +195,74 @@ class ArtShip {
         this.canvas.height = height;
         this.height = height;
     }
+
+    draw_smooth_polygon(coordinates, red = 0, green = 0, blue = 0) {
+        if (coordinates[0] !== coordinates[coordinates.length - 1]) {
+            coordinates.push(coordinates[0]);
+        }
+        let dens = this.calculate_polygon_area(coordinates) ** 0.3;
+        let dens_decrease = this.random(1, 2);
+        let smooth_dens = 50;
+        let num_iterations = 500;
+        let num_recurrent = this.int(this.random(1, 4));
+        this.#draw_recurrent_polygon(coordinates, num_recurrent, dens, dens_decrease, smooth_dens, num_iterations, red, green, blue);
+    }
+    
+    calculate_polygon_area(coordinates) {
+        let square = 0;
+        for (let i = 0, l = coordinates.length; i < l; i++) {
+            let x_0 = coordinates[i][0];
+            let y_0 = coordinates[i == coordinates.length - 1 ? 0 : i + 1][1];
+            let x_1 = coordinates[i == coordinates.length - 1 ? 0 : i + 1][0];
+            let y_1 = coordinates[i][1];
+            square += (x_0 * y_0 * 0.5);
+            square -= (x_1 * y_1 * 0.5);
+        }
+        return Math.abs(square);
+    }
+
+    #draw_recurrent_polygon(coordinates, num_recurents, dens, dens_decrease, smooth_dens, num_iterations, red, green, blue) {
+        while (num_recurents--) {
+            coordinates = this.#twist_polygon(coordinates, dens);
+            dens /= dens_decrease;
+        }
+        this.#draw_smooth_polygon(coordinates, num_iterations, smooth_dens, red, green, blue);
+    }
+
+    #twist_polygon(coordinates, dens) {
+        let new_coordinates = [];
+        for (let i = 0; i < coordinates.length - 1; ++i) {
+            new_coordinates.push(coordinates[i]);
+            let stroke_height_x = this.random(-dens, dens);
+            let stroke_height_y = this.random(-dens, dens);
+            let x0 = (coordinates[i][0] + coordinates[i + 1][0]) / 2 + stroke_height_x;
+            let y0 = (coordinates[i][1] + coordinates[i + 1][1]) / 2 + stroke_height_y;
+            new_coordinates.push([x0, y0]);
+        }
+        new_coordinates.push(coordinates[coordinates.length - 1]);
+        return new_coordinates;
+    }
+
+    #draw_smooth_polygon(coordinates, num_iterations, dens, red, green, blue) {
+        if (red === 0 && green === 0 && blue === 0) {
+            red = this.random(0, 255);
+            green = this.random(0, 255);
+            blue = this.random(0, 255);
+        }
+        while (num_iterations--) {
+            let new_coordinates = this.#displace_coordinates(coordinates, dens);
+            this.curve(new_coordinates);
+            this.fill(red, green, blue, 0.1);
+        }
+    }
+
+    #displace_coordinates(coordinates, dens) {
+        let new_coordinates = []
+        for (let i = 0; i < coordinates.length; ++i) {
+            let x = coordinates[i][0] + this.random(-dens, dens);
+            let y = coordinates[i][1] + this.random(-dens, dens);
+            new_coordinates.push([x, y]);
+        }
+        return new_coordinates;
+    }
 }

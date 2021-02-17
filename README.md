@@ -269,7 +269,7 @@ ArtShip.mouse_update()
 ___
 
 ```javascript
-ArtShip.resize_canvas(width, height)()
+ArtShip.resize_canvas(width, height)
 ```
 
 - Resize canvas <br>
@@ -277,6 +277,27 @@ ArtShip.resize_canvas(width, height)()
   *Default parameters*
   - width = canvas width
   - height = canvas height
+
+---
+
+```javascript
+ArtShip.draw_smooth_polygon(coordinates, red, green, blue)
+```
+
+- Make polygon smoother <br>
+
+  *Default parameters*
+  - red = random
+  - green = random
+  - blue = random
+
+---
+
+```javascript
+ArtShip.calculate_polygon_area(coordinates)
+```
+
+- return polygon area
 
 ---
 
