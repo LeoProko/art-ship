@@ -13,11 +13,11 @@ function draw() {
             y.push(img.random(0, img.height));
         }
         let coordinates = [];
-        coordinates.push([x[0], y[0]]);
-        coordinates.push([x[0], y[1]]);
-        coordinates.push([x[1], y[1]]);
-        coordinates.push([x[1], y[0]]);
-        let scale = img.abs(x[0] - x[1]) * img.abs(y[0] - y[1]);
+        coordinates.push([x[0] + img.random(-img.ratio(10), img.ratio(10)), y[0] + img.random(-img.ratio(10), img.ratio(10))]);
+        coordinates.push([x[0] + img.random(-img.ratio(10), img.ratio(10)), y[1] + img.random(-img.ratio(10), img.ratio(10))]);
+        coordinates.push([x[1] + img.random(-img.ratio(10), img.ratio(10)), y[1] + img.random(-img.ratio(10), img.ratio(10))]);
+        coordinates.push([x[1] + img.random(-img.ratio(10), img.ratio(10)), y[0] + img.random(-img.ratio(10), img.ratio(10))]);
+        let scale = img.calculate_polygon_area(coordinates);
         squares.push([scale, coordinates]);
     }
     squares.sort(
@@ -26,15 +26,15 @@ function draw() {
         }
     );
     for (let square of squares) {
-        let scale = square[0];
         let coordinates = square[1];
-        // let dens = img.ratio(img.random(2, 20));
-        let dens = scale ** 0.3;
-        let dens_decrease = img.random(1, 2);
-        let smooth_dens = 50;
-        let num_iterations = 500;
-        let num_recurrent = img.int(img.random(1, 4));
-        draw_recurrent_polygon(coordinates, num_recurrent, dens, dens_decrease, smooth_dens, num_iterations);
+        img.draw_smooth_polygon(
+            coordinates,
+            img.random(0, 255),
+            img.random(0, 255),
+            img.random(0, 255),
+            0.2,
+            0.2
+        );
     }
 }
 
