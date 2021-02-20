@@ -73,9 +73,9 @@ class ArtShip {
         this.context.closePath();
     }
 
-    make_regular_polygon(andles_num, radius, x0, y0) {
+    make_regular_polygon(angles_num, radius, x0, y0) {
         let coordiantes = [];
-        for (let angle = 0; angle < 2 * Math.PI; angle += 2 * Math.PI / andles_num) {
+        for (let angle = 0; angle < 2 * Math.PI; angle += 2 * Math.PI / angles_num) {
             let x = x0 + Math.cos(angle) * radius;
             let y = y0 + Math.sin(angle) * radius;
             coordiantes.push([x, y]);
@@ -196,16 +196,16 @@ class ArtShip {
         this.height = height;
     }
 
-    draw_smooth_polygon(coordinates, red = 0, green = 0, blue = 0) {
+    draw_smooth_polygon(coordinates, red = 0, green = 0, blue = 0, scatter_coefficient = 0.4, alpha = 0.1) {
         if (coordinates[0] !== coordinates[coordinates.length - 1]) {
             coordinates.push(coordinates[0]);
         }
-        let dens = this.calculate_polygon_area(coordinates) ** 0.3;
+        let dens = this.calculate_polygon_area(coordinates) ** scatter_coefficient;
         let dens_decrease = this.random(1, 2);
-        let smooth_dens = 50;
-        let num_iterations = 500;
-        let num_recurrent = this.int(this.random(1, 4));
-        this.#draw_recurrent_polygon(coordinates, num_recurrent, dens, dens_decrease, smooth_dens, num_iterations, red, green, blue);
+        let smooth_dens = Math.min(this.width, this.height) / 20;
+        let num_iterations = smooth_dens * 10;
+        let num_recurrent = this.int(this.random(2, 4));
+        this.#draw_recurrent_polygon(coordinates, num_recurrent, dens, dens_decrease, smooth_dens, num_iterations, red, green, blue, alpha);
     }
     
     calculate_polygon_area(coordinates) {
@@ -221,12 +221,12 @@ class ArtShip {
         return Math.abs(square);
     }
 
-    #draw_recurrent_polygon(coordinates, num_recurents, dens, dens_decrease, smooth_dens, num_iterations, red, green, blue) {
-        while (num_recurents--) {
+    #draw_recurrent_polygon(coordinates, num_recurrents, dens, dens_decrease, smooth_dens, num_iterations, red, green, blue, alpha) {
+        while (num_recurrents--) {
             coordinates = this.#twist_polygon(coordinates, dens);
             dens /= dens_decrease;
         }
-        this.#draw_smooth_polygon(coordinates, num_iterations, smooth_dens, red, green, blue);
+        this.#draw_smooth_polygon(coordinates, num_iterations, smooth_dens, red, green, blue, alpha);
     }
 
     #twist_polygon(coordinates, dens) {
@@ -243,7 +243,7 @@ class ArtShip {
         return new_coordinates;
     }
 
-    #draw_smooth_polygon(coordinates, num_iterations, dens, red, green, blue) {
+    #draw_smooth_polygon(coordinates, num_iterations, dens, red, green, blue, alpha) {
         if (red === 0 && green === 0 && blue === 0) {
             red = this.random(0, 255);
             green = this.random(0, 255);
@@ -252,7 +252,7 @@ class ArtShip {
         while (num_iterations--) {
             let new_coordinates = this.#displace_coordinates(coordinates, dens);
             this.curve(new_coordinates);
-            this.fill(red, green, blue, 0.1);
+            this.fill(red, green, blue, alpha);
         }
     }
 

@@ -281,7 +281,7 @@ ArtShip.resize_canvas(width, height)
 ---
 
 ```javascript
-ArtShip.draw_smooth_polygon(coordinates, red, green, blue)
+ArtShip.draw_smooth_polygon(coordinates, red, green, blue, scatter_coefficient, alpha)
 ```
 
 - Make polygon smoother <br>
@@ -290,6 +290,8 @@ ArtShip.draw_smooth_polygon(coordinates, red, green, blue)
   - red = random
   - green = random
   - blue = random
+  - scatter_coefficient = 0.4, if the parameter is less, the density is less
+  - alpha = 0.1
 
 ---
 
