@@ -41,6 +41,31 @@ function draw_iteration() {
 let cloudy;
 let high_max;
 
+function draw_letters() {
+    let steps = 20;
+    for (let y0 = img.ratio(steps) / 2; y0 < img.height + img.ratio(steps); y0 += img.random(img.ratio(steps) * 2, img.ratio(steps) * 4)) {
+        for (let x0 = 0; x0 < img.width + img.ratio(steps); x0 += img.random(img.ratio(steps) * 1, img.ratio(steps) * 2)) {
+            let x = x0;
+            let y = y0;
+            let coordinates = [[x, y]];
+            for (let i = 0; i < 10; ++i) {
+                x += img.random(-img.ratio(steps * 1), img.ratio(steps * 1));
+                y += img.random(-img.ratio(steps * 2.5), img.ratio(steps * 3));
+                coordinates.push([x, y]);
+            }
+            for (let i = coordinates.length - 1; i >= 0; --i) {
+                let width_step = img.random(4, 30);
+                x = coordinates[i][0] + img.random(-img.ratio(steps * width_step), img.ratio(steps * width_step));
+                y = coordinates[i][1] + img.random(-img.ratio(steps * width_step), img.ratio(steps * width_step));
+                coordinates.push([x, y]);
+            }
+            coordinates.push(coordinates[0]);
+            img.curve(coordinates);
+            img.fill();
+        }
+    }
+}
+
 function draw() {
     img.background(255, 234, 117);
     draw_sun();
@@ -49,6 +74,7 @@ function draw() {
     for (let i = 0; i < 6; ++i) {
         draw_iteration();
     }
+    draw_letters();
 }
 
 draw();
