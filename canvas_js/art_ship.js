@@ -244,7 +244,11 @@ class ArtShip {
     }
 
     #draw_smooth_polygon(coordinates, num_iterations, dens, red, green, blue, alpha) {
-        if (red === 0 && green === 0 && blue === 0) {
+        let is_color = true;
+        if (red === -1 && green === -1 && blue === -1) {
+            is_color = false;
+        }
+        else if (red === 0 && green === 0 && blue === 0) {
             red = this.random(0, 255);
             green = this.random(0, 255);
             blue = this.random(0, 255);
@@ -252,7 +256,12 @@ class ArtShip {
         while (num_iterations--) {
             let new_coordinates = this.#displace_coordinates(coordinates, dens);
             this.curve(new_coordinates);
-            this.fill(red, green, blue, alpha);
+            if (is_color) {
+                this.fill(red, green, blue, alpha);
+            }
+            else {
+                this.context.fill();
+            }
         }
     }
 

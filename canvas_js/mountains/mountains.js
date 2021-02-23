@@ -19,9 +19,17 @@ function draw_sun() {
     let x = img.random(0, img.width);
     let y = img.random(0, img.height / 2);
     let coordinates = img.make_regular_polygon(20, img.ratio(5), x, y)
-    img.draw_smooth_polygon(coordinates, 255, 162, 87);
+    img.draw_smooth_polygon(coordinates, 255, 120, 100);
 }
 
+function component_to_hex(c) {
+    let hex = c.toString(16);
+    return hex.length == 1 ? "0" + hex : hex;
+}
+
+function rgb_to_hex(r, g, b) {
+    return "#" + component_to_hex(r) + component_to_hex(g) + component_to_hex(b);
+}
 
 function draw_iteration() {
     let x = img.random(0, img.width);
@@ -33,9 +41,24 @@ function draw_iteration() {
         coordinates.push([x, y]);
     }
     coordinates.push([img.width + img.ratio(10), img.height * 1.1]);
-    img.draw_smooth_polygon(coordinates, 50 + cloudy, 50 + cloudy, 153, 0.3, 0.3)
+    img.draw_smooth_polygon(coordinates,50 + cloudy, 50 + cloudy, 153, 0.3, 0.3);
     cloudy -= 20;
     high_max += img.height * 0.15
+}
+
+function background() {
+    let gradient = img.context.createLinearGradient(0, 0, img.width, 0);
+    gradient.addColorStop(0, rgb_to_hex(255, 234, 117));
+    gradient.addColorStop(1, rgb_to_hex(255, 150, 100));
+    img.context.fillStyle = gradient;
+    let coordinates = [
+        [0, 0],
+        [0, img.height],
+        [img.width, img.height],
+        [img.width, 0]
+    ];
+    img.polygon(coordinates);
+    img.context.fill();
 }
 
 let cloudy;
@@ -67,7 +90,7 @@ function draw_letters() {
 }
 
 function draw() {
-    img.background(255, 234, 117);
+    background();
     draw_sun();
     cloudy = 100;
     high_max = 0;
