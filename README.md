@@ -53,6 +53,22 @@ ArtShip.fill(red, green, blue, alpha)
 
 ___
 
+
+```javascript
+ArtShip.gradient(stops, from, to)
+```
+
+- Make gradient *from* `(from[0], from[1])`
+  *to* `(to[0], to[1])` with steps in format `[ratio, reg, green, blue]`
+
+  *Default parameters*
+  - stops = random colors from the left side image to the right side via the center
+  - from = `[0, 0]`
+  - to = `[img.width, 0]`
+
+___
+
+
 ```javascript
 ArtShip.background(red, green, blue, alpha)
 ```

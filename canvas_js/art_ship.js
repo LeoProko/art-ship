@@ -13,6 +13,7 @@ class ArtShip {
         };
     }
 
+
     print(...message) {
         console.log(message);
     }
@@ -22,6 +23,35 @@ class ArtShip {
         this.context.fillStyle = 'rgba(' + red + ',' + green + ',' + blue + ',' + alpha + ')';
         this.context.fill();
         this.context.restore();
+    }
+
+    #component_to_hex(color) {
+        let hex = color.toString(16);
+        return hex.length == 1 ? "0" + hex : hex;
+    }
+
+    #rgb_to_hex(red, green, blue) {
+        return "#" +
+            this.#component_to_hex(this.int(red)) +
+            this.#component_to_hex(this.int(green)) +
+            this.#component_to_hex(this.int(blue));
+    }
+
+    gradient(
+        stops = [
+            [0, this.random(50, 255), this.random(50, 255), this.random(50, 255)],
+            [0.5, this.random(50, 255), this.random(50, 255), this.random(50, 255)],
+            [1, this.random(50, 255), this.random(50, 255), this.random(50, 255)],
+        ],
+        from = [0, this.height / 2],
+        to = [this.width, this.height / 2]
+    ) {
+        let gradient = this.context.createLinearGradient(from[0], from[1], to[0], to[1]);
+        for (let stop of stops) {
+            gradient.addColorStop(stop[0], this.#rgb_to_hex(stop[1], stop[2], stop[3]));
+        }
+        this.context.fillStyle = gradient;
+        this.context.fill();
     }
 
     background(red = 255, green = 255, blue = 255, alpha = 1) {
@@ -223,13 +253,13 @@ class ArtShip {
 
     #draw_recurrent_polygon(coordinates, num_recurrents, dens, dens_decrease, smooth_dens, num_iterations, red, green, blue, alpha) {
         while (num_recurrents--) {
-            coordinates = this.#twist_polygon(coordinates, dens);
+            coordinates = this.twist_polygon(coordinates, dens);
             dens /= dens_decrease;
         }
         this.#draw_smooth_polygon(coordinates, num_iterations, smooth_dens, red, green, blue, alpha);
     }
 
-    #twist_polygon(coordinates, dens) {
+    twist_polygon(coordinates, dens) {
         let new_coordinates = [];
         for (let i = 0; i < coordinates.length - 1; ++i) {
             new_coordinates.push(coordinates[i]);
